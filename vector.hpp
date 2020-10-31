@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/10/31 21:38:52 by mli              ###   ########.fr       */
+/*   Updated: 2020/10/31 22:52:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ class vector {
 
 		// Member functions
 
-		vector(void);
-		vector(vector const &src);
+		explicit vector(const allocator_type &alloc = allocator_type());
+		explicit vector(size_type n, const value_type &val = value_type(),
+						const allocator_type &alloc = allocator_type());
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last,
+				const allocator_type &alloc = allocator_type());
+		vector(const vector &src);
 		virtual ~vector(void);
 
 		vector	&operator=(vector const &rhs);
@@ -53,14 +58,16 @@ class vector {
 
 	protected:
 	private:
-		T						*_data;
+		value_type				*_data;
+		allocator_type			_alloc;
 		size_type				_size;
 		size_type				_capacity;
 		const static size_type	_max_size;
 };
 
-template<typename T, typename Alloc>
-vector<T, Alloc>::vector(void) : _data(NULL), _size(0), _capacity(0) {
+template <typename T, typename Alloc>
+vector<T, Alloc>::vector(const allocator_type &alloc) : \
+	_data(NULL), _alloc(alloc), _size(0), _capacity(0) {
 	return ;
 }
 
