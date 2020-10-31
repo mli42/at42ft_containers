@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/20 16:39:23 by mli               #+#    #+#              #
-#    Updated: 2020/10/20 17:15:45 by mli              ###   ########.fr        #
+#    Updated: 2020/10/31 16:04:34 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CYAN = \033[96m
 NAME = a.out
 
 CC = clang++
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 ifeq ($(f), f)
 	CFLAGS += -fsanitize=address -g3
