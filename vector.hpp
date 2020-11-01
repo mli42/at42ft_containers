@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/10/31 22:52:41 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/01 18:34:14 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,48 +21,48 @@ template< typename T, typename Alloc = std::allocator<T> >
 class vector {
 	public:
 
-		typedef T											value_type;
-		typedef Alloc										allocator_type;
-		typedef typename allocator_type::reference			reference;
-		typedef typename allocator_type::const_reference	const_reference;
-		typedef typename allocator_type::pointer			pointer;
-		typedef typename allocator_type::const_pointer		const_pointer;
+	typedef T											value_type;
+	typedef Alloc										allocator_type;
+	typedef typename allocator_type::reference			reference;
+	typedef typename allocator_type::const_reference	const_reference;
+	typedef typename allocator_type::pointer			pointer;
+	typedef typename allocator_type::const_pointer		const_pointer;
 
-		typedef ptrdiff_t									difference_type;
-		typedef size_t										size_type;
+	typedef ptrdiff_t									difference_type;
+	typedef size_t										size_type;
 
-		// Member functions
+	// Member functions
 
-		explicit vector(const allocator_type &alloc = allocator_type());
-		explicit vector(size_type n, const value_type &val = value_type(),
-						const allocator_type &alloc = allocator_type());
-		template <class InputIterator>
-		vector(InputIterator first, InputIterator last,
-				const allocator_type &alloc = allocator_type());
-		vector(const vector &src);
-		virtual ~vector(void);
+	explicit vector(const allocator_type &alloc = allocator_type());
+	explicit vector(size_type n, const value_type &val = value_type(),
+		const allocator_type &alloc = allocator_type());
+	template <class InputIterator>
+	vector(InputIterator first, InputIterator last,
+		const allocator_type &alloc = allocator_type());
+	vector(const vector &src);
+	virtual ~vector(void);
 
-		vector	&operator=(vector const &rhs);
+	vector	&operator=(vector const &rhs);
 
-		// Iterators
+	// Iterators
 
-		// Capacity
+	// Capacity
 
-		size_type	size(void) const;
-		size_type	capacity(void) const;
-		size_type	max_size(void) const;
+	size_type	size(void) const;
+	size_type	capacity(void) const;
+	size_type	max_size(void) const;
 
-		// Element access
-		// Modifiers
-		// Allocator
+	// Element access
+	// Modifiers
+	// Allocator
 
 	protected:
 	private:
-		value_type				*_data;
-		allocator_type			_alloc;
-		size_type				_size;
-		size_type				_capacity;
-		const static size_type	_max_size;
+	value_type				*_data;
+	allocator_type			_alloc;
+	size_type				_size;
+	size_type				_capacity;
+	const static size_type	_max_size;
 };
 
 template <typename T, typename Alloc>
