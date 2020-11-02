@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/01 22:48:44 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/02 20:45:10 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,23 @@ class vector {
 		typedef Spe*		pointer;
 		typedef Spe&		reference;
 
+		VectIte(void);
+		VectIte(const VectIte &src);
+		~VectIte(void);
+		VectIte	&operator=(VectIte const &rhs);
+
+		bool	operator==(const VectIte &rhs) const;
+		bool	operator!=(const VectIte &rhs) const;
+		bool	operator<(const VectIte &rhs) const;
+		bool	operator<=(const VectIte &rhs) const;
+		bool	operator>(const VectIte &rhs) const;
+		bool	operator>=(const VectIte &rhs) const;
+
+		reference	operator*(void) const;
+		pointer		operator->(void) const;
+
 		protected:
 		pointer				_value;
-
-		public:
-		VectIte(void);
 	}; // ************************************************* class VectIte end //
 
 }; // ************************************************** class ft::vector end //
