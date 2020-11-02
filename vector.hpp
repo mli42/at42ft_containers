@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/02 20:52:06 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/02 22:55:26 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,72 @@ template <typename T, typename Alloc> template <typename Spe>
 typename vector<T, Alloc>::template VectIte<Spe>::pointer
 	vector<T, Alloc>::VectIte<Spe>::operator->(void) const {
 	return (this->_value);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>&
+	vector<T, Alloc>::VectIte<Spe>::operator++(void) {
+	++this->_value;
+	return (*this);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>
+	vector<T, Alloc>::VectIte<Spe>::operator++(int) {
+	VectIte<Spe>	tmp(*this);
+	++this->_value;
+	return (tmp);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>&
+	vector<T, Alloc>::VectIte<Spe>::operator--(void) {
+	--this->_value;
+	return (*this);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>
+	vector<T, Alloc>::VectIte<Spe>::operator--(int) {
+	VectIte<Spe>	tmp(*this);
+	--this->_value;
+	return (tmp);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>
+	vector<T, Alloc>::VectIte<Spe>::operator+(difference_type n) {
+	return (VectIte(this->_value + n));
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>
+	vector<T, Alloc>::VectIte<Spe>::operator-(difference_type n) {
+	return (VectIte(this->_value - n));
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>::difference_type
+	vector<T, Alloc>::VectIte<Spe>::operator-(const VectIte &rhs) {
+	return (this->_value - rhs._value);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>::reference
+	vector<T, Alloc>::VectIte<Spe>::operator+=(difference_type n) {
+	return (this->_value += n);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>::reference
+	vector<T, Alloc>::VectIte<Spe>::operator-=(difference_type n) {
+	return (*this += -n);
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+typename vector<T, Alloc>::template VectIte<Spe>::reference
+	vector<T, Alloc>::VectIte<Spe>::operator[](difference_type n) {
+	return (this->_value[n]);
 }
 
 } // ******************************************************* ft namespace end //

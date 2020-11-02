@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/02 20:45:10 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/02 22:54:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,10 @@ class vector {
 	template <typename Spe>
 	class VectIte {
 		public:
-	//	typedef Spe			value_type;
-		typedef Spe*		pointer;
-		typedef Spe&		reference;
+	//	typedef Spe				value_type;
+		typedef difference_type	difference_type;
+		typedef Spe*			pointer;
+		typedef Spe&			reference;
 
 		VectIte(void);
 		VectIte(const VectIte &src);
@@ -94,6 +95,24 @@ class vector {
 
 		reference	operator*(void) const;
 		pointer		operator->(void) const;
+
+		VectIte<Spe>	&operator++(void);
+		VectIte<Spe>	operator++(int);
+		VectIte<Spe>	&operator--(void);
+		VectIte<Spe>	operator--(int);
+
+		VectIte<Spe>		operator+(difference_type n);
+		friend VectIte<Spe>	operator+(difference_type n, const VectIte &rhs)
+			{ return (VectIte(rhs->_value + n)); };
+
+		VectIte<Spe>		operator-(difference_type n);
+		friend VectIte<Spe>	operator-(difference_type n, const VectIte &rhs)
+			{ return (VectIte(rhs->_value - n)); };
+
+		difference_type		operator-(const VectIte &rhs);
+		reference			operator+=(difference_type n);
+		reference			operator-=(difference_type n);
+		reference			operator[](difference_type n);
 
 		protected:
 		pointer				_value;
