@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/02 22:54:50 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 00:11:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class vector {
 	// Member functions
 
 	explicit vector(const allocator_type &alloc = allocator_type());
-	explicit vector(size_type n, const value_type &val = value_type(),
+	explicit vector(size_type size, const value_type &val = value_type(),
 		const allocator_type &alloc = allocator_type());
 	template <class InputIterator>
 	vector(InputIterator first, InputIterator last,
@@ -57,6 +57,7 @@ class vector {
 	size_type	size(void) const;
 	size_type	capacity(void) const;
 	size_type	max_size(void) const;
+	void		resize(size_type size, value_type val = value_type());
 
 	// Element access
 	// Modifiers
@@ -68,6 +69,11 @@ class vector {
 	size_type				_size;
 	size_type				_capacity;
 	const static size_type	_max_size;
+
+	void					_create_data(size_type size, value_type val);
+	void					_destroy_data(void);
+	template <class InputIterator>
+	void					_cpy_data(InputIterator first, InputIterator last);
 
 	// ########################## Iterators ####################################
 
