@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 22:14:18 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 23:40:45 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,24 @@ typename vector<T, Alloc>::const_iterator vector<T, Alloc>::end(void) const {
 
 // ******************************* Capacity ********************************* //
 
+template<typename T, typename Alloc> template <class Ite>
+void	vector<T, Alloc>::_create_data(size_type capacity, Ite first, Ite last) {
+	vector<T, Alloc> res;
+
+	if (capacity < last - first)
+		throw std::logic_error("vector::_create_data() incorrect input");
+	res->_alloc = this->_alloc;
+	res->_size = last - first; res->_capacity = capacity;
+	res->_data = res->_alloc.allocate(capacity);
+	for (size_type i = 0; first != last; ++first)
+		res->_alloc.construct(&res->_data[i++], *first);
+	this->_destroy_data(*this);
+	this->_cpy_content(res);
+}
+
 template<typename T, typename Alloc>
 void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
+	this->_destroy_data(*this);
 	this->_data = this->_alloc.allocate(size);
 	for (size_type i = 0; i < size; ++i)
 		this->_alloc.construct(&this->_data[i], val);
@@ -88,24 +104,32 @@ void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
 }
 
 template<typename T, typename Alloc>
-void	vector<T, Alloc>::_destroy_data(void) {
-	if (!this->_data)
+void	vector<T, Alloc>::_destroy_data(vector<T, Alloc> &vct) {
+	if (!vct._data)
 		return ;
-	for (size_type i = 0; i < this->size; ++i)
-		this->_alloc.destroy(&this->_data[i]);
-	this->_alloc.deallocate(this->_data, this->_capacity);
-	this->_data = NULL; this->_size = 0; this->_capacity = 0;
+	for (size_type i = 0; i < vct._size; ++i)
+		vct._alloc.destroy(&vct._data[i]);
+	vct._alloc.deallocate(vct._data, vct._capacity);
+	vct._data = NULL; vct._size = 0; vct._capacity = 0;
 }
 
-template<typename T, typename Alloc> template <class InputIterator>
-void	vector<T, Alloc>::_cpy_data(InputIterator first, InputIterator last) {
-	size_type i = 0;
+template<typename T, typename Alloc> template <class Ite, class Iterator>
+void	vector<T, Alloc>::_cpy_data(Ite start, Iterator first, Iterator last) {
 	while (first != last)
 	{
-		this->_data[i] = *first;
+		*start = *first;
+		++start;
 		++first;
-		++i;
 	}
+}
+
+template<typename T, typename Alloc>
+void	vector<T, Alloc>::_cpy_content(vector<T, Alloc> &vct) {
+	this->_data = vct._data;
+	this->_alloc = vct._alloc;
+	this->_size = vct._size;
+	this->_capacity = vct._capacity;
+	vct._data = NULL; vct._size = 0; vct._capacity = 0;
 }
 
 template<typename T, typename Alloc>
@@ -126,6 +150,16 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 		tmp._cpy_data(this->begin(), this->end());
 	}
 }
+
+template<typename T, typename Alloc>
+void		vector<T, Alloc>::reserve(size_type n) {
+	if (n > this->max_size())
+		throw std::length_error("allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size");
+	if (n <= this->capacity())
+		return ;
+//	vector<T, Alloc> tmp;
+}
+
 
 template<typename T, typename Alloc>
 typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator ite) {

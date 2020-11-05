@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 21:53:41 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 23:33:16 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ class vector {
 	size_type	capacity(void) const;
 	size_type	max_size(void) const;
 	void		resize(size_type size, value_type val = value_type());
+	void		reserve(size_type n);
+
 
 	// Element access
 
@@ -76,10 +78,13 @@ class vector {
 	size_type				_capacity;
 	const static size_type	_max_size;
 
-	void					_create_data(size_type size, value_type val);
-	void					_destroy_data(void);
-	template <class InputIterator>
-	void					_cpy_data(InputIterator first, InputIterator last);
+	template <class Ite>
+	void				_create_data(size_type capacity, Ite first, Ite last);
+	void				_create_data(size_type size, value_type val = value_type());
+	static void			_destroy_data(vector &vct);
+	template <class Ite, class Iterator>
+	static void			_cpy_data(Ite start, Iterator first, Iterator last);
+	void				_cpy_content(vector &vct);
 
 	// ########################## Iterators ####################################
 
