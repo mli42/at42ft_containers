@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:48:47 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 20:20:29 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 21:12:42 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class Verbose {
 				<< " = " << rhs << std::endl;
 			if (this == &rhs)
 				return (*this);
-			this->index = rhs.index;
+	//		this->index = rhs.index;
 			return (*this);
 		}
 

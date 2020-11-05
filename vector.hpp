@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 17:52:55 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 22:14:18 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,30 @@ vector<T, Alloc>	&vector<T, Alloc>::operator=(vector const &rhs) {
 		return (*this);
 	return (*this);
 }
+
+// ****************************** Iterators ********************************* //
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::iterator vector<T, Alloc>::begin(void) {
+	return (iterator(this->_data));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator vector<T, Alloc>::begin(void) const {
+	return (const_iterator(this->_data));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::iterator vector<T, Alloc>::end(void) {
+	return (iterator(&this->_data[this->size]));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator vector<T, Alloc>::end(void) const {
+	return (const_iterator(&this->_data[this->size]));
+}
+
+// ******************************* Capacity ********************************* //
 
 template<typename T, typename Alloc>
 void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
@@ -104,6 +128,25 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 }
 
 template<typename T, typename Alloc>
+typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator ite) {
+	return (this->erase(ite, ite + 1));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iterator last) {
+	iterator end = this->end();
+	size_type deleted = last - first;
+
+	while (last != end)
+	{
+		*first = *(++last);
+		++first;
+	}
+	while (deleted-- > 0)
+		this->_alloc.destroy(&this->_data[--this->_size]);
+}
+
+template<typename T, typename Alloc>
 typename vector<T, Alloc>::size_type vector<T, Alloc>::size(void) const {
 	return (this->_size);
 }
@@ -126,6 +169,11 @@ const typename vector<T, Alloc>::size_type vector<T, Alloc>::_max_size =
 
 template <typename T, typename Alloc> template <typename Spe>
 vector<T, Alloc>::VectIte<Spe>::VectIte(void) : _value(NULL) {
+	return ;
+}
+
+template <typename T, typename Alloc> template <typename Spe>
+vector<T, Alloc>::VectIte<Spe>::VectIte(const pointer &src) : _value(src) {
 	return ;
 }
 

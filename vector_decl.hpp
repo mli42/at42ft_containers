@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 00:11:40 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 21:53:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ class vector {
 	vector	&operator=(vector const &rhs);
 
 	// Iterators
-
+	iterator		begin(void);
+	const_iterator	begin(void) const;
+	iterator		end(void);
+	const_iterator	end(void) const;
 	// Capacity
 
 	size_type	size(void) const;
@@ -60,7 +63,10 @@ class vector {
 	void		resize(size_type size, value_type val = value_type());
 
 	// Element access
+
 	// Modifiers
+	iterator	erase(iterator ite);
+	iterator	erase(iterator first, iterator last);
 
 	protected:
 	private:
@@ -88,6 +94,7 @@ class vector {
 		typedef Spe&			reference;
 
 		VectIte(void);
+		VectIte(const pointer &src);
 		VectIte(const VectIte &src);
 		~VectIte(void);
 		VectIte	&operator=(VectIte const &rhs);
