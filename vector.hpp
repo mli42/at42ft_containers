@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 23:40:45 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 23:57:48 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	vector<T, Alloc>::_create_data(size_type capacity, Ite first, Ite last) {
 
 	if (capacity < last - first)
 		throw std::logic_error("vector::_create_data() incorrect input");
-	res->_alloc = this->_alloc;
-	res->_size = last - first; res->_capacity = capacity;
-	res->_data = res->_alloc.allocate(capacity);
+	res._alloc = this->_alloc;
+	res._size = last - first; res._capacity = capacity;
+	res._data = res._alloc.allocate(capacity);
 	for (size_type i = 0; first != last; ++first)
-		res->_alloc.construct(&res->_data[i++], *first);
+		res._alloc.construct(&res._data[i++], *first);
 	this->_destroy_data(*this);
 	this->_cpy_content(res);
 }
@@ -157,9 +157,8 @@ void		vector<T, Alloc>::reserve(size_type n) {
 		throw std::length_error("allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size");
 	if (n <= this->capacity())
 		return ;
-//	vector<T, Alloc> tmp;
+	this->_create_data(n, this->begin(), this->end());
 }
-
 
 template<typename T, typename Alloc>
 typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator ite) {
