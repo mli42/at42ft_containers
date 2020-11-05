@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 00:11:10 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/05 17:52:55 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ vector<T, Alloc>	&vector<T, Alloc>::operator=(vector const &rhs) {
 }
 
 template<typename T, typename Alloc>
-const void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
+void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
 	this->_data = this->_alloc.allocate(size);
 	for (size_type i = 0; i < size; ++i)
 		this->_alloc.construct(&this->_data[i], val);
@@ -64,7 +64,7 @@ const void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
 }
 
 template<typename T, typename Alloc>
-const void	vector<T, Alloc>::_destroy_data(void) {
+void	vector<T, Alloc>::_destroy_data(void) {
 	if (!this->_data)
 		return ;
 	for (size_type i = 0; i < this->size; ++i)
@@ -74,7 +74,7 @@ const void	vector<T, Alloc>::_destroy_data(void) {
 }
 
 template<typename T, typename Alloc> template <class InputIterator>
-const void	vector<T, Alloc>::_cpy_data(InputIterator first, InputIterator last) {
+void	vector<T, Alloc>::_cpy_data(InputIterator first, InputIterator last) {
 	size_type i = 0;
 	while (first != last)
 	{
