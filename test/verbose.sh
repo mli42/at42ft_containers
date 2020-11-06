@@ -1,20 +1,43 @@
 #!/usr/bin/env zsh
 
-CC="clang++"
-CFLAGS="-Wall -Wextra -Werror -std=c++98"
+function diff_in() {
+	for arg in $@; do
+		if [ "$arg" = "diff" ]; then
+			return 0
+		fi
+	done
+	return 1
+}
 
-for arg in $@; do
+function main() {
+	CC="clang++"
+	CFLAGS="-Wall -Wextra -Werror -std=c++98"
 
-	if [ "$arg" = "ft" ] || [ "$arg" = "std" ]; then
-		CFLAGS+=" -D TESTED_STL=$arg"
-	elif [ "$arg" = "db" ]; then
-		CFLAGS+=" -fsanitize=address -g3"
-	fi
+	for arg in $@; do
 
-done
+		if [ "$arg" = "ft" ] || [ "$arg" = "std" ]; then
+			CFLAGS+=" -D TESTED_STL=$arg"
+		elif [ "$arg" = "db" ]; then
+			CFLAGS+=" -fsanitize=address -g3"
+		fi
 
-SRC=(verbose.cpp)
+	done
 
-gpp="$CC $CFLAGS"
+	SRC=(verbose.cpp)
 
-eval "$gpp $SRC" && ./a.out
+	gpp="$CC $CFLAGS"
+
+	eval "$gpp $SRC" && ./a.out
+}
+
+diff_in $*
+if [ $? = 1 ]; then
+	main $*
+else
+	ft_file="ft_containers.txt"
+	std_file="std_containers.txt"
+	main $* ft > $ft_file
+	main $* std > $std_file
+	diff $std_file $ft_file
+	rm -rf $std_file $ft_file
+fi

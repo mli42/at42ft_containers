@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/06 18:28:54 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/06 22:28:05 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ template <typename T, typename Alloc>
 vector<T, Alloc>::vector(size_type size, const value_type &val,
 	const allocator_type &alloc) : \
 	_data(NULL), _alloc(alloc), _size(0), _capacity(0) {
-	(void)size; (void)val;
-//	this->resize(size, val);
+	this->_create_data(size, val);
 	return ;
 }
 
@@ -37,17 +36,18 @@ template <typename T, typename Alloc> template <class InputIterator>
 vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 	const allocator_type &alloc) : \
 	_data(NULL), _alloc(alloc), _size(0), _capacity(0) {
-	(void)first; (void)last;
+	this->_create_data(last - first, first, last);
 }
 
 template<typename T, typename Alloc>
-vector<T, Alloc>::vector(vector const &src) {
+vector<T, Alloc>::vector(vector const &src) : \
+	_data(NULL), _alloc(allocator_type()), _size(0), _capacity(0) {
 	*this = src;
 }
 
 template<typename T, typename Alloc>
 vector<T, Alloc>::~vector(void) {
-	return ;
+	this->_destroy_data(*this);
 }
 
 template<typename T, typename Alloc>
@@ -126,8 +126,9 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iter
 
 	while (last != end)
 	{
-		*first = *(++last);
+		*first = *last;
 		++first;
+		++last;
 	}
 	while (deleted-- > 0)
 		this->_alloc.destroy(&this->_data[--this->_size]);
@@ -167,7 +168,7 @@ void	vector<T, Alloc>::_create_data(difference_type capacity, Ite first, Ite las
 }
 
 template<typename T, typename Alloc>
-void	vector<T, Alloc>::_create_data(size_type size, value_type val) {
+void	vector<T, Alloc>::_create_data(size_type size, const value_type &val) {
 	this->_destroy_data(*this);
 	this->_data = this->_alloc.allocate(size);
 	for (size_type i = 0; i < size; ++i)

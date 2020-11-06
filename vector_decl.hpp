@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/06 18:20:53 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/06 20:56:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ class vector {
 
 	template <class Ite>
 	void				_create_data(difference_type capacity, Ite first, Ite last);
-	void				_create_data(size_type size, value_type val = value_type());
+	void				_create_data(size_type size, const value_type &val = value_type());
 	static void			_destroy_data(vector &vct);
 	template <class Ite, class Iterator>
 	static void			_cpy_data(Ite start, Iterator first, Iterator last);

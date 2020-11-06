@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:52:48 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 22:18:38 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/06 22:29:49 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_lol(TESTED_STL::vector<T> const &vct)
 
 int		main(void)
 {
-	TESTED_STL::vector<Verbose> lol(10);
+	TESTED_STL::vector<Verbose> lol(10, Verbose());
 	TESTED_STL::vector<Verbose>::iterator it;
 	TESTED_STL::vector<Verbose>::iterator ite;
 
