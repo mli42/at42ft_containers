@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/06 22:28:05 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 17:55:30 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ template<typename T, typename Alloc>
 vector<T, Alloc>	&vector<T, Alloc>::operator=(vector const &rhs) {
 	if (this == &rhs)
 		return (*this);
+	const_iterator first = rhs.begin();
+	const_iterator last = rhs.end();
+	this->_create_data(last - first, first, last);
 	return (*this);
 }
 
@@ -102,6 +105,24 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 		while (this->_size < size)
 			this->_alloc.construct(&this->_data[this->_size++], val);
 	}
+}
+
+// ******************************* Ele Access ******************************* //
+
+// ******************************** Modifiers ******************************* //
+
+template<typename T, typename Alloc>
+void		vector<T, Alloc>::push_back(const value_type &val) {
+	if (this->_size == this->_capacity)
+		this->resize(this->_size + 1, val);
+	else
+		this->_alloc.construct(&this->_data[this->_size++], val);
+}
+
+// Do not protect this function or it will not behave like the original!
+template<typename T, typename Alloc>
+void		vector<T, Alloc>::pop_back(void) {
+	this->_alloc.destroy(&this->_data[--this->_size]);
 }
 
 template<typename T, typename Alloc>

@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:52:48 by mli               #+#    #+#             */
-/*   Updated: 2020/11/07 13:40:41 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 17:47:22 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_lol(TESTED_STL::vector<T> const &vct)
 int		main(void)
 {
 	TESTED_STL::vector<Verbose> lol(10, Verbose());
+	TESTED_STL::vector<Verbose> vct2;
 	TESTED_STL::vector<Verbose>::iterator it;
 	TESTED_STL::vector<Verbose>::iterator ite;
 
@@ -54,7 +55,11 @@ int		main(void)
 	for (int i = -1; it != ite; ++it)
 		*it = ++i;
 
+	lol.push_back(42);
+
 	printSize(lol, 1);
+
+	vct2 = lol;
 
 	it = lol.begin();
 	it += 4;
@@ -68,6 +73,13 @@ int		main(void)
 	lol.resize(5);
 
 	printSize(lol, true);
+
+	std::cout << "\nlol.reserve()" << std::endl;
+	lol.reserve(lol.capacity() + 1);
+	printSize(lol, true);
+
+	std::cout << "\nprinting vct2" << std::endl;
+	printSize(vct2, true);
 
 	return (0);
 }

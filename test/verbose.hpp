@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:48:47 by mli               #+#    #+#             */
-/*   Updated: 2020/11/07 13:37:36 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 17:59:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,19 @@ std::ostream	&operator<<(std::ostream &o, Verbose const &i);
 
 class Verbose {
 	public:
-		Verbose(void);
+		Verbose(const bool &do_v = false);
 		virtual ~Verbose(void);
 
-		Verbose(const Verbose &src) : index(this->_n++), content(0) {
-			std::cout << "Verbose::Copy-Constructor called" << std::endl;
+		Verbose(const Verbose &src) : \
+			index(this->_n++), content(0), do_v(src.do_v) {
+			if (this->do_v)
+				std::cout << "Verbose::Copy-Constructor called" << std::endl;
 			*this = src;
 		}
 
 		Verbose	&operator=(const Verbose &rhs) {
-			std::cout << "Verbose::operator=(const Verbose &) called: " \
+			if (this->do_v)
+				std::cout << "Verbose::operator=(const Verbose &) called: " \
 				<< *this << " = " << rhs << std::endl;
 			if (this == &rhs)
 				return (*this);
@@ -38,13 +41,16 @@ class Verbose {
 			return (*this);
 		}
 
-		Verbose(const int &src) : index(this->_n++), content(0) {
-			std::cout << "Verbose::Int-Constructor called" << std::endl;
+		Verbose(const int &src, const bool &do_v = false) : \
+			index(this->_n++), content(0), do_v(do_v) {
+			if (this->do_v)
+				std::cout << "Verbose::Int-Constructor called" << std::endl;
 			*this = src;
 		}
 
 		Verbose	&operator=(const int &rhs) {
-			std::cout << "Verbose::operator=(const int &) called: " \
+			if (this->do_v)
+				std::cout << "Verbose::operator=(const int &) called: " \
 				<< *this << " = int(" << rhs << ")" << std::endl;
 			this->content = rhs;
 			return (*this);
@@ -52,6 +58,7 @@ class Verbose {
 
 		const int	index;
 		int			content;
+		bool		do_v;
 
 	private:
 		static size_t	_n;
@@ -59,16 +66,20 @@ class Verbose {
 
 size_t Verbose::_n = 0;
 
-Verbose::Verbose(void) : index(this->_n++), content(0) {
-	std::cout << "Constructor " << *this << std::endl;
+Verbose::Verbose(const bool &do_v) : index(this->_n++), content(0), do_v(do_v) {
+	if (this->do_v)
+		std::cout << "Constructor " << *this << std::endl;
 }
 
 Verbose::~Verbose(void) {
-	std::cout << "Destructor " << *this << std::endl;
+	if (this->do_v)
+		std::cout << "Destructor " << *this << std::endl;
 }
 
 std::ostream	&operator<<(std::ostream &o, Verbose const &i) {
-	o << "[" << i.index << "] (" << i.content << ")";
+	if (i.do_v)
+		o << "[" << i.index << "] ";
+	o << "(" << i.content << ")";
 	return (o);
 }
 

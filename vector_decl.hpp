@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/06 20:56:54 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 17:39:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,11 @@ class vector {
 	void		resize(size_type size, value_type val = value_type());
 	void		reserve(size_type n);
 
-
 	// Element access
 
 	// Modifiers
+	void		push_back(const value_type &val);
+	void		pop_back(void);
 	iterator	erase(iterator ite);
 	iterator	erase(iterator first, iterator last);
 
