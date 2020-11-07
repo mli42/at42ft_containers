@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 19:52:48 by mli               #+#    #+#             */
-/*   Updated: 2020/11/06 22:29:49 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 13:40:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,13 @@ int		main(void)
 	TESTED_STL::vector<Verbose>::iterator it;
 	TESTED_STL::vector<Verbose>::iterator ite;
 
-	printSize(lol);
+	it = lol.begin();
+	ite = lol.end();
+
+	for (int i = -1; it != ite; ++it)
+		*it = ++i;
+
+	printSize(lol, 1);
 
 	it = lol.begin();
 	it += 4;
@@ -57,11 +63,11 @@ int		main(void)
 
 	lol.erase(it, ite);
 
-	printSize(lol);
+	printSize(lol, true);
 
 	lol.resize(5);
 
-	printSize(lol);
+	printSize(lol, true);
 
 	return (0);
 }

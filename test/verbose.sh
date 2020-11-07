@@ -38,6 +38,6 @@ else
 	std_file="std_containers.txt"
 	main $* ft > $ft_file
 	main $* std > $std_file
-	diff $std_file $ft_file
+	diff $std_file $ft_file && echo "No diff :D"
 	rm -rf $std_file $ft_file
 fi
