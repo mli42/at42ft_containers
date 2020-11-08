@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/07 17:55:30 by mli              ###   ########.fr       */
+/*   Updated: 2020/11/07 18:10:16 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,11 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 		while (size < this->_size)
 			this->_alloc.destroy(&this->_data[--this->_size]);
 	}
-	else if (size <= this->_capacity)
-	{
-		while (this->_size < size)
-			this->_alloc.construct(&this->_data[this->_size++], val);
-	}
 	else
 	{
-		if (size <= this->_size * 2)
+		if (size <= this->_capacity)
+			;
+		else if (size <= this->_size * 2)
 			this->reserve(this->_size * 2);
 		else
 			this->reserve(size);
