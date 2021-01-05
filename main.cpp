@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2020/11/05 20:55:17 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/05 14:25:31 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <vector>
 
 #ifndef TESTED_NAMESPACE
-# define TESTED_NAMESPACE std
+# define TESTED_NAMESPACE ft
 #endif
 
 #define tested_type int
@@ -42,11 +42,20 @@ int		main(int argc, char **argv)
 	TESTED_NAMESPACE::vector<tested_type> vct(5);
 	TESTED_NAMESPACE::vector<tested_type> vctor(5);
 	TESTED_NAMESPACE::vector<tested_type>::iterator it;
+	TESTED_NAMESPACE::vector<tested_type>::const_iterator ite = vct.begin();
 
 	it = vct.begin();
+	//ite = vct.begin();
+
+	ite[3] = 5;
+
+	printSize(vct, 1);
+
+	/*
 	printSize(vct);
 	vct.resize(10);
 	printSize(vct, 1);
+	*/
 //	std::cout << (vct == vctor) << std::endl;
 //	std::cout << (vctor == vctor) << std::endl;
 //	std::cout << (vct == vct) << std::endl;

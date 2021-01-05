@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2020/11/07 17:39:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/05 14:47:12 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,24 @@
 
 namespace ft {
 
+template <bool flag, class IsTrue, class IsFalse>
+struct choose;
+
+template <class IsTrue, class IsFalse>
+struct choose<true, IsTrue, IsFalse> {
+	typedef IsTrue type;
+};
+
+template <class IsTrue, class IsFalse>
+struct choose<false, IsTrue, IsFalse> {
+	typedef IsFalse type;
+};
+
 template< typename T, typename Alloc = std::allocator<T> >
 class vector {
 	public:
 
-	template <typename Spe>
+	template <typename Spe, bool is_const>
 	class VectIte;
 
 	typedef T											value_type;
@@ -31,8 +44,8 @@ class vector {
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_pointer		const_pointer;
 
-	typedef VectIte<value_type>							iterator;
-	typedef VectIte<const value_type>					const_iterator;
+	typedef VectIte<value_type, false>					iterator;
+	typedef VectIte<value_type, true>					const_iterator;
 
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
@@ -91,17 +104,18 @@ class vector {
 
 	public:
 
-	template <typename Spe>
+	template <typename Spe, bool is_const>
 	class VectIte {
 		public:
-	//	typedef Spe				value_type;
-		typedef difference_type	difference_type;
-		typedef Spe*			pointer;
-		typedef Spe&			reference;
+	//	typedef Spe													value_type;
+		typedef difference_type										difference_type;
+		typedef typename choose<is_const, const Spe, Spe>::type&	reference;
+		typedef typename choose<is_const, const Spe, Spe>::type*	pointer;
 
 		VectIte(void);
 		VectIte(const pointer &src);
 		VectIte(const VectIte &src);
+		VectIte(const VectIte<Spe, !is_const> &src);
 		~VectIte(void);
 		VectIte	&operator=(VectIte const &rhs);
 
@@ -115,17 +129,17 @@ class vector {
 		reference	operator*(void) const;
 		pointer		operator->(void) const;
 
-		VectIte<Spe>	&operator++(void);
-		VectIte<Spe>	operator++(int);
-		VectIte<Spe>	&operator--(void);
-		VectIte<Spe>	operator--(int);
+		VectIte<Spe, is_const>	&operator++(void);
+		VectIte<Spe, is_const>	operator++(int);
+		VectIte<Spe, is_const>	&operator--(void);
+		VectIte<Spe, is_const>	operator--(int);
 
-		VectIte<Spe>		operator+(difference_type n);
-		friend VectIte<Spe>	operator+(difference_type n, const VectIte &rhs)
+		VectIte<Spe, is_const>		operator+(difference_type n);
+		friend VectIte<Spe, is_const>	operator+(difference_type n, const VectIte &rhs)
 			{ return (VectIte(rhs->_value + n)); };
 
-		VectIte<Spe>		operator-(difference_type n);
-		friend VectIte<Spe>	operator-(difference_type n, const VectIte &rhs)
+		VectIte<Spe, is_const>		operator-(difference_type n);
+		friend VectIte<Spe, is_const>	operator-(difference_type n, const VectIte &rhs)
 			{ return (VectIte(rhs->_value - n)); };
 
 		difference_type		operator-(const VectIte &rhs);

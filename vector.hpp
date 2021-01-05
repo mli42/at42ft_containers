@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2020/11/07 18:10:16 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/05 14:47:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,140 +229,145 @@ const typename vector<T, Alloc>::size_type vector<T, Alloc>::_max_size =
 
 // ############################## Iterators ####################################
 
-template <typename T, typename Alloc> template <typename Spe>
-vector<T, Alloc>::VectIte<Spe>::VectIte(void) : _value(NULL) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(void) : _value(NULL) {
 	return ;
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-vector<T, Alloc>::VectIte<Spe>::VectIte(const pointer &src) : _value(src) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(const pointer &src) : _value(src) {
 	return ;
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-vector<T, Alloc>::VectIte<Spe>::VectIte(const VectIte &src) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(const VectIte &src) {
 	*this = src;
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-vector<T, Alloc>::VectIte<Spe>::~VectIte(void) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(const VectIte<Spe, !is_const> &src) {
+	*this = src;
+}
+
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+vector<T, Alloc>::VectIte<Spe, is_const>::~VectIte(void) {
 	return ;
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>&
-	vector<T, Alloc>::VectIte<Spe>::operator=(const VectIte &rhs) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>&
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator=(const VectIte &rhs) {
 	if (this == &rhs)
 		return (*this);
 	this->_value = rhs._value;
 	return (*this);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator==(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator==(const VectIte &rhs) const {
 	return (this->_value == rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator!=(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator!=(const VectIte &rhs) const {
 	return (this->_value != rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator<(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator<(const VectIte &rhs) const {
 	return (this->_value < rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator<=(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator<=(const VectIte &rhs) const {
 	return (this->_value <= rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator>(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator>(const VectIte &rhs) const {
 	return (this->_value > rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-bool	vector<T, Alloc>::VectIte<Spe>::operator>=(const VectIte &rhs) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+bool	vector<T, Alloc>::VectIte<Spe, is_const>::operator>=(const VectIte &rhs) const {
 	return (this->_value >= rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::reference
-	vector<T, Alloc>::VectIte<Spe>::operator*(void) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::reference
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator*(void) const {
 	return (*this->_value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::pointer
-	vector<T, Alloc>::VectIte<Spe>::operator->(void) const {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::pointer
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator->(void) const {
 	return (this->_value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>&
-	vector<T, Alloc>::VectIte<Spe>::operator++(void) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>&
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator++(void) {
 	++this->_value;
 	return (*this);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>
-	vector<T, Alloc>::VectIte<Spe>::operator++(int) {
-	VectIte<Spe>	tmp(*this);
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator++(int) {
+	VectIte<Spe, is_const>	tmp(*this);
 	++this->_value;
 	return (tmp);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>&
-	vector<T, Alloc>::VectIte<Spe>::operator--(void) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>&
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator--(void) {
 	--this->_value;
 	return (*this);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>
-	vector<T, Alloc>::VectIte<Spe>::operator--(int) {
-	VectIte<Spe>	tmp(*this);
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator--(int) {
+	VectIte<Spe, is_const>	tmp(*this);
 	--this->_value;
 	return (tmp);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>
-	vector<T, Alloc>::VectIte<Spe>::operator+(difference_type n) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator+(difference_type n) {
 	return (VectIte(this->_value + n));
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>
-	vector<T, Alloc>::VectIte<Spe>::operator-(difference_type n) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator-(difference_type n) {
 	return (VectIte(this->_value - n));
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::difference_type
-	vector<T, Alloc>::VectIte<Spe>::operator-(const VectIte &rhs) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::difference_type
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator-(const VectIte &rhs) {
 	return (this->_value - rhs._value);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::reference
-	vector<T, Alloc>::VectIte<Spe>::operator+=(difference_type n) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::reference
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator+=(difference_type n) {
 	return (*(this->_value += n));
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::reference
-	vector<T, Alloc>::VectIte<Spe>::operator-=(difference_type n) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::reference
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator-=(difference_type n) {
 	return (*this += -n);
 }
 
-template <typename T, typename Alloc> template <typename Spe>
-typename vector<T, Alloc>::template VectIte<Spe>::reference
-	vector<T, Alloc>::VectIte<Spe>::operator[](difference_type n) {
+template <typename T, typename Alloc> template <typename Spe, bool is_const>
+typename vector<T, Alloc>::template VectIte<Spe, is_const>::reference
+	vector<T, Alloc>::VectIte<Spe, is_const>::operator[](difference_type n) {
 	return (this->_value[n]);
 }
 
