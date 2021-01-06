@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/05 14:47:12 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/06 14:58:53 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ class vector {
 		typedef typename choose<is_const, const Spe, Spe>::type*	pointer;
 
 		VectIte(void);
-		VectIte(const pointer &src);
+		VectIte(Spe *src);
 		VectIte(const VectIte &src);
 		VectIte(const VectIte<Spe, !is_const> &src);
 		~VectIte(void);
@@ -148,7 +148,7 @@ class vector {
 		reference			operator[](difference_type n);
 
 		protected:
-		pointer				_value;
+		Spe				*_value;
 	}; // ************************************************* class VectIte end //
 
 }; // ************************************************** class ft::vector end //

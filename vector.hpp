@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/05 14:47:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/06 14:57:04 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(void) : _value(NULL) {
 }
 
 template <typename T, typename Alloc> template <typename Spe, bool is_const>
-vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(const pointer &src) : _value(src) {
+vector<T, Alloc>::VectIte<Spe, is_const>::VectIte(Spe *src) : _value(src) {
 	return ;
 }
 
