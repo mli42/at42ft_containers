@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/06 14:58:53 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/07 16:10:57 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,13 @@ class vector {
 
 		VectIte<Spe, is_const>		operator+(difference_type n);
 		friend VectIte<Spe, is_const>	operator+(difference_type n, const VectIte &rhs)
-			{ return (VectIte(rhs->_value + n)); };
-
+			{ return (VectIte(rhs._value + n)); };
 		VectIte<Spe, is_const>		operator-(difference_type n);
+
+		/* Cannnot do reversed subtraction
 		friend VectIte<Spe, is_const>	operator-(difference_type n, const VectIte &rhs)
-			{ return (VectIte(rhs->_value - n)); };
+			{ return (VectIte(rhs._value - n)); };
+		*/
 
 		difference_type		operator-(const VectIte &rhs);
 		reference			operator+=(difference_type n);
