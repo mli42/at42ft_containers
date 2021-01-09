@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2021/01/07 16:08:10 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/09 22:23:24 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define TESTED_NAMESPACE ft
 #endif
 
-#define tested_type int
+#define TESTED_TYPE int
 
 template <typename T>
 void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = 0)
@@ -39,15 +39,14 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = 0)
 int		main(int argc, char **argv)
 {
 	(void)argc; (void)argv;
-	TESTED_NAMESPACE::vector<tested_type> vct(5);
-	TESTED_NAMESPACE::vector<tested_type> vctor(5);
-	TESTED_NAMESPACE::vector<tested_type>::iterator it = vct.begin();
-	TESTED_NAMESPACE::vector<tested_type>::iterator ite = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	//TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator ite = vct.begin();
 
-	it += 3;
-	ite = 3 + ite;
+	//it += 3;
+	//ite = 3 + ite;
 
-	std::cout << (ite == it) << std::endl;
+	//std::cout << (ite == it) << std::endl;
 
 	/*
 	printSize(vct);

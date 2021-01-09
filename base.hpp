@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2020/10/26 14:28:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/09 19:00:51 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,22 @@
 # include <iostream>
 # include <string>
 # include <memory>
+
+namespace ft {
+
+template <bool flag, class IsTrue, class IsFalse>
+struct choose;
+
+template <class IsTrue, class IsFalse>
+struct choose<true, IsTrue, IsFalse> {
+	typedef IsTrue type;
+};
+
+template <class IsTrue, class IsFalse>
+struct choose<false, IsTrue, IsFalse> {
+	typedef IsFalse type;
+};
+
+} // ******************************************************* ft namespace end //
 
 #endif // ************************************************ BASE_CLASS_HPP end //
