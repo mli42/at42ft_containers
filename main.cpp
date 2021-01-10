@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2021/01/09 22:23:24 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/10 18:36:46 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ int		main(int argc, char **argv)
 	(void)argc; (void)argv;
 	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
-	//TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator ite = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = vct.begin();
 
-	//it += 3;
-	//ite = 3 + ite;
+	it = 3 + it;
 
-	//std::cout << (ite == it) << std::endl;
+	std::cout << (ite == it) << std::endl;
+	std::cout << (ite - it) << std::endl;
 
 	/*
 	printSize(vct);

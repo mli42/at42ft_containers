@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/09 22:34:14 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/10 17:55:59 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,18 @@ class vector {
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_pointer		const_pointer;
 
-	class iterator : public VectIte<value_type, false> { };
-	class const_iterator : public VectIte<value_type, true> { };
-
-	/*
-	typedef VectIte<value_type, false>					iterator;
-	typedef VectIte<value_type, true>					const_iterator;
-	*/
+	class iterator : public VectIte<value_type> {
+		public:
+		iterator(void) : VectIte<value_type>() {};
+		iterator(value_type *src) : VectIte<value_type>(src) {};
+		iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
+	};
+	class const_iterator : public VectIte<value_type> {
+		public:
+		const_iterator(void) : VectIte<value_type>() {};
+		const_iterator(value_type *src) : VectIte<value_type>(src) {};
+		const_iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
+	};
 
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
