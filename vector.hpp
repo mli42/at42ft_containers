@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/09 21:24:12 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 11:56:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,72 @@ void	vector<T, Alloc>::_cpy_content(vector<T, Alloc> &vct) {
 template <typename T, typename Alloc>
 const typename vector<T, Alloc>::size_type vector<T, Alloc>::_max_size =
 	std::numeric_limits<difference_type>::max() / (sizeof(value_type) / 2 ?: 1);
+
+// ############################## Iterators ####################################
+
+// Regular Iterator
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator::reference
+	vector<T, Alloc>::iterator::operator*(void) const {
+	return (*this->_value);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator::pointer
+	vector<T, Alloc>::iterator::operator->(void) const {
+	return (this->_value);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator::reference
+	vector<T, Alloc>::iterator::operator+=(difference_type n) {
+	return (*(this->_value += n));
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator::reference
+	vector<T, Alloc>::iterator::operator-=(difference_type n) {
+	return (*this += -n);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::iterator::reference
+	vector<T, Alloc>::iterator::operator[](difference_type n) {
+	return (this->_value[n]);
+}
+
+// Const Iterator
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator::reference
+	vector<T, Alloc>::const_iterator::operator*(void) const {
+	return (*this->_value);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator::pointer
+	vector<T, Alloc>::const_iterator::operator->(void) const {
+	return (this->_value);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator::reference
+	vector<T, Alloc>::const_iterator::operator+=(difference_type n) {
+	return (*(this->_value += n));
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator::reference
+	vector<T, Alloc>::const_iterator::operator-=(difference_type n) {
+	return (*this += -n);
+}
+
+template <typename T, typename Alloc>
+typename vector<T, Alloc>::const_iterator::reference
+	vector<T, Alloc>::const_iterator::operator[](difference_type n) {
+	return (this->_value[n]);
+}
 
 } // ******************************************************* ft namespace end //
 

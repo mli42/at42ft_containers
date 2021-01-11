@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/10 17:55:59 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 11:46:05 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,39 @@ class vector {
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_pointer		const_pointer;
 
+	typedef ptrdiff_t									difference_type;
+	typedef size_t										size_type;
+
 	class iterator : public VectIte<value_type> {
 		public:
 		iterator(void) : VectIte<value_type>() {};
 		iterator(value_type *src) : VectIte<value_type>(src) {};
 		iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
+
+		typedef value_type&			reference;
+		typedef value_type*			pointer;
+
+		reference			operator*(void) const;
+		pointer				operator->(void) const;
+		reference			operator+=(difference_type n);
+		reference			operator-=(difference_type n);
+		reference			operator[](difference_type n);
 	};
 	class const_iterator : public VectIte<value_type> {
 		public:
 		const_iterator(void) : VectIte<value_type>() {};
 		const_iterator(value_type *src) : VectIte<value_type>(src) {};
 		const_iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
-	};
 
-	typedef ptrdiff_t									difference_type;
-	typedef size_t										size_type;
+		typedef const value_type&		reference;
+		typedef const value_type*		pointer;
+
+		reference			operator*(void) const;
+		pointer				operator->(void) const;
+		reference			operator+=(difference_type n);
+		reference			operator-=(difference_type n);
+		reference			operator[](difference_type n);
+	};
 
 	// Member functions
 

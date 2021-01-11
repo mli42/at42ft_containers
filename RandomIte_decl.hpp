@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/01/10 18:39:12 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 12:07:15 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,9 @@ namespace ft {
 		public:
 		typedef ptrdiff_t				difference_type;
 
-		/*
-		typedef typename choose<is_const, const Spe, Spe>::type&	reference;
-		typedef typename choose<is_const, const Spe, Spe>::type*	pointer;
-		*/
-
 		VectIte(void);
 		VectIte(Spe *src);
 		VectIte(const VectIte &src);
-		//VectIte(const VectIte<Spe, !is_const> &src);
 		virtual ~VectIte(void);
 		VectIte	&operator=(VectIte const &rhs);
 
@@ -61,7 +55,7 @@ namespace ft {
 			{ return (VectIte(rhs._value - n)); };
 		*/
 
-		/*
+		/* Declared in sub-classes:
 		reference	operator*(void) const;
 		pointer		operator->(void) const;
 		reference			operator+=(difference_type n);

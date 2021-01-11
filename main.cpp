@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2021/01/10 18:36:46 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 12:06:26 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ int		main(int argc, char **argv)
 	std::cout << (ite == it) << std::endl;
 	std::cout << (ite - it) << std::endl;
 
+	*it = 5;
+	//*ite = 3;
+	//ite[2] = 3;
+
+	printSize(vct, true);
 	/*
-	printSize(vct);
 	vct.resize(10);
 	printSize(vct, 1);
 	*/

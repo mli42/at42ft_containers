@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 21:25:14 by mli               #+#    #+#             */
-/*   Updated: 2021/01/10 17:47:51 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 11:14:46 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ template <typename Spe>
 VectIte<Spe>::VectIte(const VectIte &src) {
 	*this = src;
 }
-
-/*
-template <typename Spe>
-VectIte<Spe>::VectIte(const VectIte<Spe, !is_const> &src) {
-	*this = src;
-}
-*/
 
 template <typename Spe>
 VectIte<Spe>::~VectIte(void) {
