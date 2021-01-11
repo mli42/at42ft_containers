@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 21:25:14 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 11:14:46 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 12:11:33 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,27 @@
 namespace ft {
 
 template <typename Spe>
-VectIte<Spe>::VectIte(void) : _value(NULL) {
+RandIte<Spe>::RandIte(void) : _value(NULL) {
 	return ;
 }
 
 template <typename Spe>
-VectIte<Spe>::VectIte(Spe *src) : _value(src) {
+RandIte<Spe>::RandIte(Spe *src) : _value(src) {
 	return ;
 }
 
 template <typename Spe>
-VectIte<Spe>::VectIte(const VectIte &src) {
+RandIte<Spe>::RandIte(const RandIte &src) {
 	*this = src;
 }
 
 template <typename Spe>
-VectIte<Spe>::~VectIte(void) {
+RandIte<Spe>::~RandIte(void) {
 	return ;
 }
 
 template <typename Spe>
-VectIte<Spe> &VectIte<Spe>::operator=(const VectIte &rhs) {
+RandIte<Spe> &RandIte<Spe>::operator=(const RandIte &rhs) {
 	if (this == &rhs)
 		return (*this);
 	this->_value = rhs._value;
@@ -46,105 +46,105 @@ VectIte<Spe> &VectIte<Spe>::operator=(const VectIte &rhs) {
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator==(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator==(const RandIte &rhs) const {
 	return (this->_value == rhs._value);
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator!=(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator!=(const RandIte &rhs) const {
 	return (this->_value != rhs._value);
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator<(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator<(const RandIte &rhs) const {
 	return (this->_value < rhs._value);
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator<=(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator<=(const RandIte &rhs) const {
 	return (this->_value <= rhs._value);
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator>(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator>(const RandIte &rhs) const {
 	return (this->_value > rhs._value);
 }
 
 template <typename Spe>
-bool	VectIte<Spe>::operator>=(const VectIte &rhs) const {
+bool	RandIte<Spe>::operator>=(const RandIte &rhs) const {
 	return (this->_value >= rhs._value);
 }
 
 template <typename Spe>
-VectIte<Spe> &VectIte<Spe>::operator++(void) {
+RandIte<Spe> &RandIte<Spe>::operator++(void) {
 	++this->_value;
 	return (*this);
 }
 
 template <typename Spe>
-VectIte<Spe> VectIte<Spe>::operator++(int) {
-	VectIte<Spe>	tmp(*this);
+RandIte<Spe> RandIte<Spe>::operator++(int) {
+	RandIte<Spe>	tmp(*this);
 	++this->_value;
 	return (tmp);
 }
 
 template <typename Spe>
-VectIte<Spe>& VectIte<Spe>::operator--(void) {
+RandIte<Spe>& RandIte<Spe>::operator--(void) {
 	--this->_value;
 	return (*this);
 }
 
 template <typename Spe>
-VectIte<Spe> VectIte<Spe>::operator--(int) {
-	VectIte<Spe>	tmp(*this);
+RandIte<Spe> RandIte<Spe>::operator--(int) {
+	RandIte<Spe>	tmp(*this);
 	--this->_value;
 	return (tmp);
 }
 
 template <typename Spe>
-typename VectIte<Spe>::difference_type
-	VectIte<Spe>::operator-(const VectIte &rhs) {
+typename RandIte<Spe>::difference_type
+	RandIte<Spe>::operator-(const RandIte &rhs) {
 	return (this->_value - rhs._value);
 }
 
 template <typename Spe>
-VectIte<Spe> VectIte<Spe>::operator+(difference_type n) {
-	return (VectIte(this->_value + n));
+RandIte<Spe> RandIte<Spe>::operator+(difference_type n) {
+	return (RandIte(this->_value + n));
 }
 
 template <typename Spe>
-VectIte<Spe> VectIte<Spe>::operator-(difference_type n) {
-	return (VectIte(this->_value - n));
+RandIte<Spe> RandIte<Spe>::operator-(difference_type n) {
+	return (RandIte(this->_value - n));
 }
 
 /*
 template <typename Spe>
-typename VectIte<Spe>::reference
-	VectIte<Spe>::operator*(void) const {
+typename RandIte<Spe>::reference
+	RandIte<Spe>::operator*(void) const {
 	return (*this->_value);
 }
 
 template <typename Spe>
-typename VectIte<Spe>::pointer
-	VectIte<Spe>::operator->(void) const {
+typename RandIte<Spe>::pointer
+	RandIte<Spe>::operator->(void) const {
 	return (this->_value);
 }
 
 template <typename Spe>
-typename VectIte<Spe>::reference
-	VectIte<Spe>::operator+=(difference_type n) {
+typename RandIte<Spe>::reference
+	RandIte<Spe>::operator+=(difference_type n) {
 	return (*(this->_value += n));
 }
 
 template <typename Spe>
-typename VectIte<Spe>::reference
-	VectIte<Spe>::operator-=(difference_type n) {
+typename RandIte<Spe>::reference
+	RandIte<Spe>::operator-=(difference_type n) {
 	return (*this += -n);
 }
 
 template <typename Spe>
-typename VectIte<Spe>::reference
-	VectIte<Spe>::operator[](difference_type n) {
+typename RandIte<Spe>::reference
+	RandIte<Spe>::operator[](difference_type n) {
 	return (this->_value[n]);
 }
 */

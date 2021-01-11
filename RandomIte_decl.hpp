@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 12:07:15 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 12:11:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft {
 
 	template <typename Spe>
-	class VectIte {
+	class RandIte {
 		protected:
 		//typedef Spe						value_type;
 		Spe									*_value;
@@ -26,33 +26,33 @@ namespace ft {
 		public:
 		typedef ptrdiff_t				difference_type;
 
-		VectIte(void);
-		VectIte(Spe *src);
-		VectIte(const VectIte &src);
-		virtual ~VectIte(void);
-		VectIte	&operator=(VectIte const &rhs);
+		RandIte(void);
+		RandIte(Spe *src);
+		RandIte(const RandIte &src);
+		virtual ~RandIte(void);
+		RandIte	&operator=(RandIte const &rhs);
 
-		bool	operator==(const VectIte &rhs) const;
-		bool	operator!=(const VectIte &rhs) const;
-		bool	operator<(const VectIte &rhs) const;
-		bool	operator<=(const VectIte &rhs) const;
-		bool	operator>(const VectIte &rhs) const;
-		bool	operator>=(const VectIte &rhs) const;
+		bool	operator==(const RandIte &rhs) const;
+		bool	operator!=(const RandIte &rhs) const;
+		bool	operator<(const RandIte &rhs) const;
+		bool	operator<=(const RandIte &rhs) const;
+		bool	operator>(const RandIte &rhs) const;
+		bool	operator>=(const RandIte &rhs) const;
 
-		VectIte<Spe>	&operator++(void);
-		VectIte<Spe>	operator++(int);
-		VectIte<Spe>	&operator--(void);
-		VectIte<Spe>	operator--(int);
+		RandIte<Spe>	&operator++(void);
+		RandIte<Spe>	operator++(int);
+		RandIte<Spe>	&operator--(void);
+		RandIte<Spe>	operator--(int);
 
-		difference_type				operator-(const VectIte &rhs);
-		VectIte<Spe>			operator+(difference_type n);
-		VectIte<Spe>			operator-(difference_type n);
-		friend VectIte<Spe>	operator+(difference_type n, const VectIte &rhs)
-			{ return (VectIte(rhs._value + n)); };
+		difference_type				operator-(const RandIte &rhs);
+		RandIte<Spe>			operator+(difference_type n);
+		RandIte<Spe>			operator-(difference_type n);
+		friend RandIte<Spe>	operator+(difference_type n, const RandIte &rhs)
+			{ return (RandIte(rhs._value + n)); };
 
 		/* Cannnot do reversed subtraction
-		friend VectIte<Spe>	operator-(difference_type n, const VectIte &rhs)
-			{ return (VectIte(rhs._value - n)); };
+		friend RandIte<Spe>	operator-(difference_type n, const RandIte &rhs)
+			{ return (RandIte(rhs._value - n)); };
 		*/
 
 		/* Declared in sub-classes:
@@ -63,7 +63,7 @@ namespace ft {
 		reference			operator[](difference_type n);
 		*/
 
-	}; // ************************************************* class VectIte end //
+	}; // ************************************************* class RandIte end //
 
 } // ******************************************************* ft namespace end //
 

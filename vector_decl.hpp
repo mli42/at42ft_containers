@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 11:46:05 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/11 12:11:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ class vector {
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
 
-	class iterator : public VectIte<value_type> {
+	class iterator : public RandIte<value_type> {
 		public:
-		iterator(void) : VectIte<value_type>() {};
-		iterator(value_type *src) : VectIte<value_type>(src) {};
-		iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
+		iterator(void) : RandIte<value_type>() {};
+		iterator(value_type *src) : RandIte<value_type>(src) {};
+		iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
 
 		typedef value_type&			reference;
 		typedef value_type*			pointer;
@@ -47,11 +47,11 @@ class vector {
 		reference			operator-=(difference_type n);
 		reference			operator[](difference_type n);
 	};
-	class const_iterator : public VectIte<value_type> {
+	class const_iterator : public RandIte<value_type> {
 		public:
-		const_iterator(void) : VectIte<value_type>() {};
-		const_iterator(value_type *src) : VectIte<value_type>(src) {};
-		const_iterator(const VectIte<value_type> &src) : VectIte<value_type>(src) {};
+		const_iterator(void) : RandIte<value_type>() {};
+		const_iterator(value_type *src) : RandIte<value_type>(src) {};
+		const_iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
 
 		typedef const value_type&		reference;
 		typedef const value_type*		pointer;
