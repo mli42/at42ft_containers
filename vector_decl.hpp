@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 12:11:41 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 13:41:02 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,15 @@ class vector {
 	typedef size_t										size_type;
 
 	class iterator : public RandIte<value_type> {
+		protected:
+		typedef RandIte<value_type> super;
+		private:
+		iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
+
 		public:
 		iterator(void) : RandIte<value_type>() {};
 		iterator(value_type *src) : RandIte<value_type>(src) {};
-		iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
+		iterator(const iterator &src) : RandIte<value_type>(src) {};
 
 		typedef value_type&			reference;
 		typedef value_type*			pointer;
@@ -46,6 +51,9 @@ class vector {
 		reference			operator+=(difference_type n);
 		reference			operator-=(difference_type n);
 		reference			operator[](difference_type n);
+
+		iterator			operator+(difference_type n) const { return super::operator+(n); };
+		friend iterator		operator+(difference_type n, const iterator &rhs) { return rhs.operator+(n); };
 	};
 	class const_iterator : public RandIte<value_type> {
 		public:

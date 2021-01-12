@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 21:25:14 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 12:11:33 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 13:38:06 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,17 @@ RandIte<Spe> RandIte<Spe>::operator--(int) {
 
 template <typename Spe>
 typename RandIte<Spe>::difference_type
-	RandIte<Spe>::operator-(const RandIte &rhs) {
+	RandIte<Spe>::operator-(const RandIte &rhs) const {
 	return (this->_value - rhs._value);
 }
 
 template <typename Spe>
-RandIte<Spe> RandIte<Spe>::operator+(difference_type n) {
+RandIte<Spe> RandIte<Spe>::operator+(difference_type n) const {
 	return (RandIte(this->_value + n));
 }
 
 template <typename Spe>
-RandIte<Spe> RandIte<Spe>::operator-(difference_type n) {
+RandIte<Spe> RandIte<Spe>::operator-(difference_type n) const {
 	return (RandIte(this->_value - n));
 }
 

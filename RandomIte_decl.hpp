@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 12:11:20 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 13:37:59 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ namespace ft {
 		RandIte<Spe>	&operator--(void);
 		RandIte<Spe>	operator--(int);
 
-		difference_type				operator-(const RandIte &rhs);
-		RandIte<Spe>			operator+(difference_type n);
-		RandIte<Spe>			operator-(difference_type n);
+		difference_type				operator-(const RandIte &rhs) const;
+		RandIte<Spe>			operator+(difference_type n) const;
+		RandIte<Spe>			operator-(difference_type n) const;
 		friend RandIte<Spe>	operator+(difference_type n, const RandIte &rhs)
 			{ return (RandIte(rhs._value + n)); };
 

@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 12:06:26 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 13:49:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ int		main(int argc, char **argv)
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = vct.begin();
 
 	it = 3 + it;
+	it = it + 3;
+
+	ite = 3 + ite;
+	ite = ite + 3;
+
+	//it = ite;
 
 	std::cout << (ite == it) << std::endl;
 	std::cout << (ite - it) << std::endl;
