@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/12 13:41:02 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 16:49:10 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,14 @@ class vector {
 		reference			operator-=(difference_type n);
 		reference			operator[](difference_type n);
 
+		iterator			operator-(difference_type n) const { return super::operator-(n); };
 		iterator			operator+(difference_type n) const { return super::operator+(n); };
 		friend iterator		operator+(difference_type n, const iterator &rhs) { return rhs.operator+(n); };
+
+		iterator			&operator++(void) { super::operator++(); return *this; };
+		iterator			operator++(int) { return super::operator++(0); };
+		iterator			&operator--(void) { super::operator--(); return *this; };
+		iterator			operator--(int) { return super::operator--(0); };
 	};
 	class const_iterator : public RandIte<value_type> {
 		public:

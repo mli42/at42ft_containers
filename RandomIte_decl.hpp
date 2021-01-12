@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/01/12 13:37:59 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 14:54:48 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ namespace ft {
 		RandIte<Spe>			operator+(difference_type n) const;
 		RandIte<Spe>			operator-(difference_type n) const;
 		friend RandIte<Spe>	operator+(difference_type n, const RandIte &rhs)
-			{ return (RandIte(rhs._value + n)); };
+			{ return rhs.operator+(n); };
 
 		/* Cannnot do reversed subtraction
 		friend RandIte<Spe>	operator-(difference_type n, const RandIte &rhs)

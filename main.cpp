@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:59:05 by mli               #+#    #+#             */
-/*   Updated: 2021/01/12 13:49:41 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/12 17:19:12 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,48 @@ void	printSize(TESTED_NAMESPACE::vector<T> const &vct, bool print_content = 0)
 	}
 	std::cout << "###############################################" << std::endl;
 }
-
-int		main(int argc, char **argv)
+void	prepost_incdec(TESTED_NAMESPACE::vector<TESTED_TYPE> &vct)
 {
-	(void)argc; (void)argv;
-	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(5);
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
+	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it_tmp;
+
+	std::cout << "Pre inc" << std::endl;
+	it_tmp = ++it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Pre dec" << std::endl;
+	it_tmp = --it;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Post inc" << std::endl;
+	it_tmp = it++;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+
+	std::cout << "Post dec" << std::endl;
+	it_tmp = it--;
+	std::cout << *it_tmp << " | " << *it << std::endl;
+	std::cout << "###############################################" << std::endl;
+}
+
+int		main(void)
+{
+	const int size = 5;
+	TESTED_NAMESPACE::vector<TESTED_TYPE> vct(size);
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::iterator it = vct.begin();
 	TESTED_NAMESPACE::vector<TESTED_TYPE>::const_iterator ite = vct.begin();
 
-	it = 3 + it;
-	it = it + 3;
+	for (int i = 0; i < size; ++i)
+		it[i] = i;
+	prepost_incdec(vct);
 
-	ite = 3 + ite;
-	ite = ite + 3;
-
-	//it = ite;
+	it = it + 5;
+	it = it - 4;
+	it += 2;
 
 	std::cout << (ite == it) << std::endl;
 	std::cout << (ite - it) << std::endl;
 
-	*it = 5;
 	//*ite = 3;
-	//ite[2] = 3;
 
 	printSize(vct, true);
 	/*
