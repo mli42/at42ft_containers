@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/11 11:56:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/20 17:05:34 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ template <typename T, typename Alloc> template <class InputIterator>
 vector<T, Alloc>::vector(InputIterator first, InputIterator last,
 	const allocator_type &alloc) : \
 	_data(NULL), _alloc(alloc), _size(0), _capacity(0) {
-	this->_create_data(last - first, first, last);
+	if (std::numeric_limits<InputIterator>::is_integer == false)
+		this->_create_data(last - first, first, last);
+	else
+		;
+	//this->_create_data(first, last);
 }
 
 template<typename T, typename Alloc>
@@ -174,8 +178,8 @@ template<typename T, typename Alloc> template <class Ite>
 void	vector<T, Alloc>::_create_data(difference_type capacity, Ite first, Ite last) {
 	vector<T, Alloc> res;
 
-	if (capacity < last - first)
-		throw std::logic_error("vector::_create_data() incorrect input");
+	if (capacity < last - first || capacity < 0)
+		throw std::length_error("vector");
 	res._alloc = this->_alloc;
 	res._size = last - first; res._capacity = capacity;
 	res._data = res._alloc.allocate(capacity);
