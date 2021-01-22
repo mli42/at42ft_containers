@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/20 17:05:34 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/22 11:09:42 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,10 @@ vector<T, Alloc>::vector(size_type size, const value_type &val,
 }
 
 template <typename T, typename Alloc> template <class InputIterator>
-vector<T, Alloc>::vector(InputIterator first, InputIterator last,
-	const allocator_type &alloc) : \
+vector<T, Alloc>::vector(InputIterator first, InputIterator last, const allocator_type &alloc,
+		typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type) : \
 	_data(NULL), _alloc(alloc), _size(0), _capacity(0) {
-	if (std::numeric_limits<InputIterator>::is_integer == false)
-		this->_create_data(last - first, first, last);
-	else
-		;
-	//this->_create_data(first, last);
+	this->_create_data(last - first, first, last);
 }
 
 template<typename T, typename Alloc>

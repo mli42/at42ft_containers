@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/01/20 15:08:46 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/22 10:50:44 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 namespace ft {
 
+// struct choose<bool, true, false>
+
 template <bool flag, class IsTrue, class IsFalse>
 struct choose;
 
@@ -31,6 +33,16 @@ struct choose<true, IsTrue, IsFalse> {
 template <class IsTrue, class IsFalse>
 struct choose<false, IsTrue, IsFalse> {
 	typedef IsFalse type;
+};
+
+// struct enable_if<bool, true>
+
+template <bool, class IsTrue = void>
+struct enable_if;
+
+template <class IsTrue>
+struct enable_if<true, IsTrue> {
+	typedef IsTrue type;
 };
 
 } // ******************************************************* ft namespace end //
