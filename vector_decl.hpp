@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/22 11:14:48 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/25 13:57:29 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ class vector {
 	explicit vector(const allocator_type &alloc = allocator_type());
 	explicit vector(size_type size, const value_type &val = value_type(),
 		const allocator_type &alloc = allocator_type());
-	template <class InputIterator>
-	vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type(),
-			typename ft::enable_if<!std::numeric_limits<InputIterator>::is_integer, InputIterator>::type = 0);
+	template <class Ite>
+	vector(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first,
+			Ite last, const allocator_type &alloc = allocator_type());
 	vector(const vector &src);
 	virtual ~vector(void);
 
