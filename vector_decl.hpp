@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/25 13:57:29 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/26 12:21:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ class vector {
 		iterator			operator--(int) { return super::operator--(0); };
 	};
 	class const_iterator : public RandIte<value_type> {
+		protected:
+		typedef RandIte<value_type> super;
 		public:
 		const_iterator(void) : RandIte<value_type>() {};
 		const_iterator(value_type *src) : RandIte<value_type>(src) {};
@@ -76,6 +78,16 @@ class vector {
 		reference			operator+=(difference_type n);
 		reference			operator-=(difference_type n);
 		reference			operator[](difference_type n);
+
+		difference_type		operator-(const RandIte<value_type> &n) const { return super::operator-(n); };
+		const_iterator		operator-(difference_type n) const { return super::operator-(n); };
+		const_iterator		operator+(difference_type n) const { return super::operator+(n); };
+		friend const_iterator	operator+(difference_type n, const const_iterator &rhs) { return rhs.operator+(n); };
+
+		const_iterator		&operator++(void) { super::operator++(); return *this; };
+		const_iterator		operator++(int) { return super::operator++(0); };
+		const_iterator		&operator--(void) { super::operator--(); return *this; };
+		const_iterator		operator--(int) { return super::operator--(0); };
 	};
 
 	// Member functions
