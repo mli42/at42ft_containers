@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 14:41:58 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 15:47:32 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ class vector {
 	const_iterator	begin(void) const;
 	iterator		end(void);
 	const_iterator	end(void) const;
-	// Capacity
 
+	// Capacity
 	size_type	size(void) const;
 	size_type	capacity(void) const;
 	size_type	max_size(void) const;
@@ -118,6 +118,14 @@ class vector {
 	void		reserve(size_type n);
 
 	// Element access
+	reference			operator[](size_type n);
+	const_reference		operator[](size_type n) const;
+	reference			at(size_type n);
+	const_reference		at(size_type n) const;
+	reference			front(void);
+	const_reference		front(void) const;
+	reference			back(void);
+	const_reference		back(void) const;
 
 	// Modifiers
 	void		push_back(const value_type &val);

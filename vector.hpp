@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 14:52:36 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 16:09:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,50 @@ bool	vector<T, Alloc>::empty(void) const {
 }
 
 // ******************************* Ele Access ******************************* //
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+reference		vector<T, Alloc>::operator[](size_type n) {
+	return this->_value[n];
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+const_reference	vector<T, Alloc>::operator[](size_type n) const {
+	return this->_value[n];
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+reference		vector<T, Alloc>::at(size_type n) {
+	if (n >= this->_size)
+		throw std::out_of_range("vector");
+	return ((*this)[n]);
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+const_reference	vector<T, Alloc>::at(size_type n) const {
+	if (n >= this->_size)
+		throw std::out_of_range("vector");
+	return ((*this)[n]);
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+reference		vector<T, Alloc>::front(void) {
+	return (*this)[0];
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+const_reference	vector<T, Alloc>::front(void) const {
+	return (*this)[0];
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+reference		vector<T, Alloc>::back(void) {
+	return (*this)[this->_size - 1];
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+const_reference	vector<T, Alloc>::back(void) const {
+	return (*this)[this->_size - 1];
+}
 
 // ******************************** Modifiers ******************************* //
 
