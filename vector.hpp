@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 12:28:32 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 14:52:36 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,15 +248,15 @@ typename vector<T, Alloc>::iterator::pointer
 }
 
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::iterator::reference
+typename vector<T, Alloc>::iterator&
 	vector<T, Alloc>::iterator::operator+=(difference_type n) {
-	return (*(this->_value += n));
+	this->_value += n; return *this;
 }
 
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::iterator::reference
+typename vector<T, Alloc>::iterator&
 	vector<T, Alloc>::iterator::operator-=(difference_type n) {
-	return (*this += -n);
+	this->_value -= n; return *this;
 }
 
 template <typename T, typename Alloc>
@@ -280,15 +280,15 @@ typename vector<T, Alloc>::const_iterator::pointer
 }
 
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::const_iterator::reference
+typename vector<T, Alloc>::const_iterator&
 	vector<T, Alloc>::const_iterator::operator+=(difference_type n) {
-	return (*(this->_value += n));
+	this->_value += n; return *this;
 }
 
 template <typename T, typename Alloc>
-typename vector<T, Alloc>::const_iterator::reference
+typename vector<T, Alloc>::const_iterator&
 	vector<T, Alloc>::const_iterator::operator-=(difference_type n) {
-	return (*this += -n);
+	this->_value -= n; return *this;
 }
 
 template <typename T, typename Alloc>

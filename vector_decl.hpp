@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 12:22:58 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 14:41:58 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ class vector {
 
 		reference			operator*(void) const;
 		pointer				operator->(void) const;
-		reference			operator+=(difference_type n);
-		reference			operator-=(difference_type n);
+		iterator			&operator+=(difference_type n);
+		iterator			&operator-=(difference_type n);
 		reference			operator[](difference_type n);
 
 		difference_type		operator-(const RandIte<value_type> &n) const { return super::operator-(n); };
@@ -75,8 +75,8 @@ class vector {
 
 		reference			operator*(void) const;
 		pointer				operator->(void) const;
-		reference			operator+=(difference_type n);
-		reference			operator-=(difference_type n);
+		const_iterator		&operator+=(difference_type n);
+		const_iterator		&operator-=(difference_type n);
 		reference			operator[](difference_type n);
 
 		difference_type		operator-(const RandIte<value_type> &n) const { return super::operator-(n); };
