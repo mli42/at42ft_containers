@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/26 12:21:41 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 12:22:58 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ class vector {
 	size_type	capacity(void) const;
 	size_type	max_size(void) const;
 	void		resize(size_type size, value_type val = value_type());
+	bool		empty(void) const;
 	void		reserve(size_type n);
 
 	// Element access

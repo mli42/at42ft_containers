@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/28 16:07:07 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/29 12:28:32 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,30 @@ typename vector<T, Alloc>::const_iterator vector<T, Alloc>::end(void) const {
 // ******************************* Capacity ********************************* //
 
 template<typename T, typename Alloc>
+typename vector<T, Alloc>::size_type vector<T, Alloc>::size(void) const {
+	return (this->_size);
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::size_type vector<T, Alloc>::capacity(void) const {
+	return (this->_capacity);
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::size_type vector<T, Alloc>::max_size(void) const {
+	return (_max_size);
+}
+
+template<typename T, typename Alloc>
+void		vector<T, Alloc>::reserve(size_type n) {
+	if (n > this->max_size())
+		throw std::length_error("allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size");
+	if (n <= this->capacity())
+		return ;
+	this->_create_data(n, this->begin(), this->end());
+}
+
+template<typename T, typename Alloc>
 void		vector<T, Alloc>::resize(size_type size, value_type val) {
 	if (size < this->_size)
 	{
@@ -103,6 +127,11 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 	}
 }
 
+template<typename T, typename Alloc>
+bool	vector<T, Alloc>::empty(void) const {
+	return (this->_size == 0 ? true : false);
+}
+
 // ******************************* Ele Access ******************************* //
 
 // ******************************** Modifiers ******************************* //
@@ -119,15 +148,6 @@ void		vector<T, Alloc>::push_back(const value_type &val) {
 template<typename T, typename Alloc>
 void		vector<T, Alloc>::pop_back(void) {
 	this->_alloc.destroy(&this->_data[--this->_size]);
-}
-
-template<typename T, typename Alloc>
-void		vector<T, Alloc>::reserve(size_type n) {
-	if (n > this->max_size())
-		throw std::length_error("allocator<T>::allocate(size_t n) 'n' exceeds maximum supported size");
-	if (n <= this->capacity())
-		return ;
-	this->_create_data(n, this->begin(), this->end());
 }
 
 template<typename T, typename Alloc>
@@ -150,21 +170,6 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iter
 	while (deleted-- > 0)
 		this->_alloc.destroy(&this->_data[--this->_size]);
 	return (tmp);
-}
-
-template<typename T, typename Alloc>
-typename vector<T, Alloc>::size_type vector<T, Alloc>::size(void) const {
-	return (this->_size);
-}
-
-template<typename T, typename Alloc>
-typename vector<T, Alloc>::size_type vector<T, Alloc>::capacity(void) const {
-	return (this->_capacity);
-}
-
-template<typename T, typename Alloc>
-typename vector<T, Alloc>::size_type vector<T, Alloc>::max_size(void) const {
-	return (_max_size);
 }
 
 // ################################ Private ####################################
