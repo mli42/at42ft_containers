@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 16:09:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/30 13:19:33 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,12 @@ bool	vector<T, Alloc>::empty(void) const {
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
 reference		vector<T, Alloc>::operator[](size_type n) {
-	return this->_value[n];
+	return this->_data[n];
 }
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
 const_reference	vector<T, Alloc>::operator[](size_type n) const {
-	return this->_value[n];
+	return this->_data[n];
 }
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
