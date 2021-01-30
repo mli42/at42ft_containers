@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/29 15:47:32 by mli              ###   ########.fr       */
+/*   Updated: 2021/01/30 23:44:14 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ class vector {
 	const_reference		back(void) const;
 
 	// Modifiers
+	template <class Ite>
+	void		assign(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first, Ite last);
+	void		assign(size_type n, const value_type &val);
 	void		push_back(const value_type &val);
 	void		pop_back(void);
 	iterator	erase(iterator ite);
@@ -144,7 +147,8 @@ class vector {
 	template <class Ite>
 	void				_create_data(difference_type capacity, Ite first, Ite last);
 	void				_create_data(size_type size, const value_type &val = value_type());
-	static void			_destroy_data(vector &vct);
+	void				_empty_data(void);
+	void				_destroy_data(void);
 	template <class Ite, class Iterator>
 	static void			_cpy_data(Ite start, Iterator first, Iterator last);
 	void				_cpy_content(vector &vct);
