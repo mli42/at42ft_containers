@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/01/30 23:46:54 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/01 14:20:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,12 @@ void		vector<T, Alloc>::resize(size_type size, value_type val) {
 	}
 	else
 	{
+		size_type const &lambda = (__APPLE__ ? this->_capacity : this->_size);
+
 		if (size <= this->_capacity)
 			;
-		else if (size <= this->_capacity * 2)
-			this->reserve(this->_capacity * 2);
+		else if (size <= lambda * 2)
+			this->reserve(lambda * 2);
 		else
 			this->reserve(size);
 		while (this->_size < size)
@@ -146,16 +148,32 @@ const_reference	vector<T, Alloc>::operator[](size_type n) const {
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
 reference		vector<T, Alloc>::at(size_type n) {
-	if (n >= this->_size)
-		throw std::out_of_range("vector");
-	return ((*this)[n]);
+	if (n < this->_size)
+		return ((*this)[n]);
+	std::ostringstream ostr;
+
+	ostr << "vector";
+	if (!__APPLE__)
+	{
+		ostr << "::_M_range_check: __n (which is " << n
+			<< ") >= this->size() (which is " << this->_size << ")";
+	}
+	throw std::out_of_range(ostr.str());
 }
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
 const_reference	vector<T, Alloc>::at(size_type n) const {
-	if (n >= this->_size)
-		throw std::out_of_range("vector");
-	return ((*this)[n]);
+	if (n < this->_size)
+		return ((*this)[n]);
+	std::ostringstream ostr;
+
+	ostr << "vector";
+	if (!__APPLE__)
+	{
+		ostr << "::_M_range_check: __n (which is " << n
+			<< ") >= this->size() (which is " << this->_size << ")";
+	}
+	throw std::out_of_range(ostr.str());
 }
 
 template<typename T, typename Alloc> typename vector<T, Alloc>::
@@ -249,7 +267,7 @@ void	vector<T, Alloc>::_create_data(difference_type capacity, Ite first, Ite las
 	vector<T, Alloc> res;
 
 	if (capacity < last - first || capacity < 0)
-		throw std::length_error("vector");
+		__APPLE__ ? throw std::length_error("vector") : throw std::bad_alloc();
 	res._alloc = this->_alloc;
 	res._size = last - first; res._capacity = capacity;
 	res._data = res._alloc.allocate(capacity);

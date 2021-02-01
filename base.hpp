@@ -6,17 +6,23 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/01/22 10:50:44 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/01 14:08:02 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BASE_CLASS_HPP
 # define BASE_CLASS_HPP
 
+# ifndef __APPLE__
+#  define __APPLE__ 0
+# endif
+
 # include <iostream>
 # include <string>
 # include <memory>
 # include <limits>
+# include <cstddef> // ptrdiff_t
+# include <sstream> // ostring
 
 namespace ft {
 
