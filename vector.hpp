@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/01 14:20:38 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/04 10:39:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,36 @@ void		vector<T, Alloc>::push_back(const value_type &val) {
 template<typename T, typename Alloc>
 void		vector<T, Alloc>::pop_back(void) {
 	this->_alloc.destroy(&this->_data[--this->_size]);
+}
+
+template<typename T, typename Alloc> typename vector<T, Alloc>::
+iterator	vector<T, Alloc>::insert(iterator position, const value_type &val) {
+	difference_type idx = position - this->begin();
+
+	this->insert(position, 1, val);
+	return (iterator(this->begin() + idx));
+}
+
+template<typename T, typename Alloc>
+void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type &val) {
+	difference_type const	idx = position - this->begin();
+	difference_type const	old_end_idx = this->end() - this->begin();
+	iterator				old_end, end;
+
+	this->resize(this->_size + n);
+
+	end = this->end();
+	position = this->begin() + idx;
+	old_end = this->begin() + old_end_idx;
+	while (old_end != position)
+		*--end = *--old_end;
+	while (n-- > 0)
+		*position++ = val;
+}
+
+template<typename T, typename Alloc> template <class Ite>
+void	vector<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type last) {
+	(void)position; (void)first; (void)last;
 }
 
 template<typename T, typename Alloc>

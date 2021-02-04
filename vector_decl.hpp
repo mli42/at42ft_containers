@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/01/30 23:44:14 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/02 14:30:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,13 @@ class vector {
 	void		assign(size_type n, const value_type &val);
 	void		push_back(const value_type &val);
 	void		pop_back(void);
+
+	iterator	insert(iterator position, const value_type &val);
+	void		insert(iterator position, size_type n, const value_type &val);
+	template <class Ite>
+		void	insert(iterator position, Ite first,
+			typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type last);
+
 	iterator	erase(iterator ite);
 	iterator	erase(iterator first, iterator last);
 
