@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/05 10:46:34 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/05 11:56:36 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,6 +300,15 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iter
 	while (deleted-- > 0)
 		this->_alloc.destroy(&this->_data[--this->_size]);
 	return (tmp);
+}
+
+template<typename T, typename Alloc>
+void	vector<T, Alloc>::swap(vector &x) {
+	vector<T, Alloc> tmp;
+
+	tmp._cpy_content(x);
+	x._cpy_content(*this);
+	this->_cpy_content(tmp);
 }
 
 template<typename T, typename Alloc>

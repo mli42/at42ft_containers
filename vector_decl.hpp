@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/02/05 10:42:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/05 11:52:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ class vector {
 
 	iterator	erase(iterator ite);
 	iterator	erase(iterator first, iterator last);
+	void		swap(vector &x);
 	void		clear(void);
 
 	protected:
