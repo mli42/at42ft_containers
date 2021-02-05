@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/04 10:39:40 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/05 10:46:34 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void	vector<T, Alloc>::assign(typename ft::enable_if<!std::numeric_limits<Ite>::
 		this->_create_data(size, first, last);
 	else
 	{
-		this->_empty_data();
+		this->clear();
 		while (first != last)
 			this->_alloc.construct(&this->_data[this->_size++], *first++);
 	}
@@ -218,7 +218,7 @@ void	vector<T, Alloc>::assign(size_type n, const value_type &val) {
 		this->_create_data(n, val);
 	else
 	{
-		this->_empty_data();
+		this->clear();
 		while (this->_size < n)
 			this->_alloc.construct(&this->_data[this->_size++], val);
 	}
@@ -265,7 +265,19 @@ void	vector<T, Alloc>::insert(iterator position, size_type n, const value_type &
 
 template<typename T, typename Alloc> template <class Ite>
 void	vector<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type last) {
-	(void)position; (void)first; (void)last;
+	difference_type const	idx = position - this->begin();
+	difference_type const	old_end_idx = this->end() - this->begin();
+	iterator				old_end, end;
+
+	this->resize(this->_size + (last - first));
+
+	end = this->end();
+	position = this->begin() + idx;
+	old_end = this->begin() + old_end_idx;
+	while (old_end != position)
+		*--end = *--old_end;
+	while (first != last)
+		*position++ = *first++;
 }
 
 template<typename T, typename Alloc>
@@ -288,6 +300,12 @@ typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iter
 	while (deleted-- > 0)
 		this->_alloc.destroy(&this->_data[--this->_size]);
 	return (tmp);
+}
+
+template<typename T, typename Alloc>
+void	vector<T, Alloc>::clear(void) {
+	while (this->_size > 0)
+		this->_alloc.destroy(&this->_data[--this->_size]);
 }
 
 // ################################ Private ####################################
@@ -317,16 +335,10 @@ void	vector<T, Alloc>::_create_data(size_type size, const value_type &val) {
 }
 
 template<typename T, typename Alloc>
-void	vector<T, Alloc>::_empty_data(void) {
-	while (this->_size > 0)
-		this->_alloc.destroy(&this->_data[--this->_size]);
-}
-
-template<typename T, typename Alloc>
 void	vector<T, Alloc>::_destroy_data(void) {
 	if (!this->_data)
 		return ;
-	this->_empty_data();
+	this->clear();
 	this->_alloc.deallocate(this->_data, this->_capacity);
 	this->_data = NULL; this->_size = 0; this->_capacity = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/02/02 14:30:41 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/05 10:42:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ class vector {
 
 	iterator	erase(iterator ite);
 	iterator	erase(iterator first, iterator last);
+	void		clear(void);
 
 	protected:
 	private:
@@ -154,7 +155,6 @@ class vector {
 	template <class Ite>
 	void				_create_data(difference_type capacity, Ite first, Ite last);
 	void				_create_data(size_type size, const value_type &val = value_type());
-	void				_empty_data(void);
 	void				_destroy_data(void);
 	template <class Ite, class Iterator>
 	static void			_cpy_data(Ite start, Iterator first, Iterator last);
