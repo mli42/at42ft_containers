@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/01/12 14:54:48 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/08 14:04:25 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ namespace ft {
 	template <typename Spe>
 	class RandIte {
 		protected:
-		//typedef Spe						value_type;
 		Spe									*_value;
 
 		public:
+		typedef Spe						value_type;
 		typedef ptrdiff_t				difference_type;
 
 		RandIte(void);

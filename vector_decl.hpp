@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/02/05 11:52:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/08 14:12:21 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "base.hpp"
 # include "RandomIte.hpp"
+# include "ReverseIte.hpp"
 
 namespace ft {
 
@@ -89,6 +90,8 @@ class vector {
 		const_iterator		&operator--(void) { super::operator--(); return *this; };
 		const_iterator		operator--(int) { return super::operator--(0); };
 	};
+	typedef ft::reverse_iterator<iterator>			reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 	// Member functions
 
