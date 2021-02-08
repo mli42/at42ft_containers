@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/08 14:10:36 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/08 15:58:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,15 @@
 namespace ft {
 
 template <class Iterator>
-class reverse_iterator : public RandIte<typename Iterator::value_type> {
+class reverse_iterator {
 	protected:
-		typedef RandIte<typename Iterator::value_type>	super;
-		typedef Iterator								super_t;
+		typedef Iterator	super;
 		Iterator _base;
 	public:
 		typedef Iterator							iterator_type;
-		typedef typename super_t::difference_type	difference_type;
-		typedef typename super_t::reference			reference;
-		typedef typename super_t::pointer			pointer;
+		typedef typename super::difference_type	difference_type;
+		typedef typename super::reference			reference;
+		typedef typename super::pointer			pointer;
 
 		reverse_iterator(void);
 		explicit reverse_iterator(Iterator x);
@@ -36,21 +35,21 @@ class reverse_iterator : public RandIte<typename Iterator::value_type> {
 		template <class U> reverse_iterator &operator=(const reverse_iterator<U> &u);
 		Iterator base(void) const { return this->_base; };
 
-		reference			operator*(void) const { return super_t::operator*(); };
-		pointer				operator->(void) const { return super_t::operator->(); };
+		reference			operator*(void) const { return this->_base.operator*(); };
+		pointer				operator->(void) const { return this->_base.operator->(); };
 
-		reverse_iterator	&operator++(void) { super_t::operator--(); return *this; };
-		reverse_iterator	operator++(int) { return super_t::operator--(0); };
-		reverse_iterator	&operator--(void) { super_t::operator++(); return *this; };
-		reverse_iterator	operator--(int) { return super_t::operator++(0); };
+		reverse_iterator	&operator++(void) { this->_base.operator--(); return *this; };
+		reverse_iterator	operator++(int) { return this->_base.operator--(0); };
+		reverse_iterator	&operator--(void) { this->_base.operator++(); return *this; };
+		reverse_iterator	operator--(int) { return this->_base.operator++(0); };
 
 		template <class U>
-		difference_type		operator-(const reverse_iterator<U> &u) { return super_t::operator-(u.base()); };
-		reverse_iterator	operator+ (difference_type n) const { return super_t::operator-(n); };
-		reverse_iterator	&operator+=(difference_type n) { return super_t::operator-=(n); };
-		reverse_iterator	operator- (difference_type n) const { return super_t::operator+(n); };
-		reverse_iterator	&operator-=(difference_type n) { return super_t::operator+=(n); };
-		reference			operator[](difference_type n) const { return super_t::operator[](n); };
+		difference_type		operator-(const reverse_iterator<U> &u) { return this->_base.operator-(u.base()); };
+		reverse_iterator	operator+ (difference_type n) const { return this->_base.operator-(n); };
+		reverse_iterator	&operator+=(difference_type n) { return this->_base.operator-=(n); };
+		reverse_iterator	operator- (difference_type n) const { return this->_base.operator+(n); };
+		reverse_iterator	&operator-=(difference_type n) { return this->_base.operator+=(n); };
+		reference			operator[](difference_type n) const { return this->_base.operator[](n); };
 
 		friend reverse_iterator	operator+(difference_type n, const reverse_iterator &rhs)
 			{ return rhs.operator+(n); };
