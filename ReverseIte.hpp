@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/08 15:58:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/09 14:24:49 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ class reverse_iterator {
 		Iterator _base;
 	public:
 		typedef Iterator							iterator_type;
-		typedef typename super::difference_type	difference_type;
+		typedef typename super::difference_type		difference_type;
 		typedef typename super::reference			reference;
-		typedef typename super::pointer			pointer;
+		typedef typename super::pointer				pointer;
 
 		reverse_iterator(void);
 		explicit reverse_iterator(Iterator x);
@@ -58,6 +58,20 @@ class reverse_iterator {
 
 template <class Iterator>
 reverse_iterator<Iterator>::reverse_iterator(void) : _base() { };
+
+template <class Iterator>
+reverse_iterator<Iterator>::reverse_iterator(Iterator x) : _base(x) { };
+
+template <class Iterator> template <class U>
+reverse_iterator<Iterator>::reverse_iterator(const reverse_iterator<U> &u) : _base(u._base) { };
+
+template <class Iterator> template <class U>
+reverse_iterator<Iterator>	&reverse_iterator<Iterator>::operator=(const reverse_iterator<U> &u) {
+	if (this == &u)
+		return (*this);
+	this->_base = u._base;
+	return (*this);
+};
 
 } // ******************************************************* ft namespace end //
 
