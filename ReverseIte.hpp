@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/09 14:24:49 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/12 16:23:29 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ template <class Iterator>
 reverse_iterator<Iterator>::reverse_iterator(Iterator x) : _base(x) { };
 
 template <class Iterator> template <class U>
-reverse_iterator<Iterator>::reverse_iterator(const reverse_iterator<U> &u) : _base(u._base) { };
+reverse_iterator<Iterator>::reverse_iterator(const reverse_iterator<U> &u) : _base(u.base()) { };
 
 template <class Iterator> template <class U>
 reverse_iterator<Iterator>	&reverse_iterator<Iterator>::operator=(const reverse_iterator<U> &u) {
 	if (this == &u)
 		return (*this);
-	this->_base = u._base;
+	this->_base = u.base();
 	return (*this);
 };
 
