@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 10:36:03 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 12:20:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,7 +425,7 @@ typename vector<T, Alloc>::iterator&
 
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::iterator::reference
-	vector<T, Alloc>::iterator::operator[](difference_type n) {
+	vector<T, Alloc>::iterator::operator[](difference_type n) const {
 	return (this->_value[n]);
 }
 
@@ -457,7 +457,7 @@ typename vector<T, Alloc>::const_iterator&
 
 template <typename T, typename Alloc>
 typename vector<T, Alloc>::const_iterator::reference
-	vector<T, Alloc>::const_iterator::operator[](difference_type n) {
+	vector<T, Alloc>::const_iterator::operator[](difference_type n) const {
 	return (this->_value[n]);
 }
 
