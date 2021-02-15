@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 11:23:38 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 13:57:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,22 @@ class reverse_iterator {
 		reverse_iterator	operator--(int) { return reverse_iterator(this->_base.operator++(0)); };
 
 		template <class U>
-		difference_type		operator-(const reverse_iterator<U> &u) { return this->_base.operator-(u.base()); };
+		difference_type		operator-(const reverse_iterator<U> &u) { return u.base().operator-(this->_base); };
 		reverse_iterator	operator+ (difference_type n) const { return reverse_iterator(this->_base.operator-(n)); };
 		reverse_iterator	&operator+=(difference_type n) { this->_base.operator-=(n); return *this; };
 		reverse_iterator	operator- (difference_type n) const { return reverse_iterator(this->_base.operator+(n)); };
 		reverse_iterator	&operator-=(difference_type n) { this->_base.operator+=(n); return *this; };
-		reference			operator[](difference_type n) const { return this->_base.operator[](n); };
+		reference			operator[](difference_type n) const { return *this->operator+(n); };
 
 		friend reverse_iterator	operator+(difference_type n, const reverse_iterator &rhs)
 			{ return rhs.operator+(n); };
+
+		template <class U> bool	operator==(const reverse_iterator<U> &rhs) const { return this->_base.operator==(rhs.base()); };
+		template <class U> bool	operator!=(const reverse_iterator<U> &rhs) const { return this->_base.operator!=(rhs.base()); };
+		template <class U> bool	operator< (const reverse_iterator<U> &rhs) const { return this->_base.operator> (rhs.base()); };
+		template <class U> bool	operator<=(const reverse_iterator<U> &rhs) const { return this->_base.operator>=(rhs.base()); };
+		template <class U> bool	operator> (const reverse_iterator<U> &rhs) const { return this->_base.operator< (rhs.base()); };
+		template <class U> bool	operator>=(const reverse_iterator<U> &rhs) const { return this->_base.operator<=(rhs.base()); };
 
 }; // ************************************************** class ReverseIte end //
 
