@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/12 16:23:29 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 11:23:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ class reverse_iterator {
 		template <class U> reverse_iterator &operator=(const reverse_iterator<U> &u);
 		Iterator base(void) const { return this->_base; };
 
-		reference			operator*(void) const { return this->_base.operator*(); };
-		pointer				operator->(void) const { return this->_base.operator->(); };
+		reference			operator*(void) const { return (this->_base - 1).operator*(); };
+		pointer				operator->(void) const { return &this->operator*(); };
 
 		reverse_iterator	&operator++(void) { this->_base.operator--(); return *this; };
-		reverse_iterator	operator++(int) { return this->_base.operator--(0); };
+		reverse_iterator	operator++(int) { return reverse_iterator(this->_base.operator--(0)); };
 		reverse_iterator	&operator--(void) { this->_base.operator++(); return *this; };
-		reverse_iterator	operator--(int) { return this->_base.operator++(0); };
+		reverse_iterator	operator--(int) { return reverse_iterator(this->_base.operator++(0)); };
 
 		template <class U>
 		difference_type		operator-(const reverse_iterator<U> &u) { return this->_base.operator-(u.base()); };
-		reverse_iterator	operator+ (difference_type n) const { return this->_base.operator-(n); };
-		reverse_iterator	&operator+=(difference_type n) { return this->_base.operator-=(n); };
-		reverse_iterator	operator- (difference_type n) const { return this->_base.operator+(n); };
-		reverse_iterator	&operator-=(difference_type n) { return this->_base.operator+=(n); };
+		reverse_iterator	operator+ (difference_type n) const { return reverse_iterator(this->_base.operator-(n)); };
+		reverse_iterator	&operator+=(difference_type n) { this->_base.operator-=(n); return *this; };
+		reverse_iterator	operator- (difference_type n) const { return reverse_iterator(this->_base.operator+(n)); };
+		reverse_iterator	&operator-=(difference_type n) { this->_base.operator+=(n); return *this; };
 		reference			operator[](difference_type n) const { return this->_base.operator[](n); };
 
 		friend reverse_iterator	operator+(difference_type n, const reverse_iterator &rhs)
@@ -67,7 +67,7 @@ reverse_iterator<Iterator>::reverse_iterator(const reverse_iterator<U> &u) : _ba
 
 template <class Iterator> template <class U>
 reverse_iterator<Iterator>	&reverse_iterator<Iterator>::operator=(const reverse_iterator<U> &u) {
-	if (this == &u)
+	if (reinterpret_cast<const void *>(this) == reinterpret_cast<const void *>(&u))
 		return (*this);
 	this->_base = u.base();
 	return (*this);

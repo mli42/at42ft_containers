@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/02/08 14:12:21 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 10:03:30 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ class vector {
 	const_iterator	begin(void) const;
 	iterator		end(void);
 	const_iterator	end(void) const;
+
+	reverse_iterator		rbegin(void);
+	const_reverse_iterator	rbegin(void) const;
+	reverse_iterator		rend(void);
+	const_reverse_iterator	rend(void) const;
 
 	// Capacity
 	size_type	size(void) const;

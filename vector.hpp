@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/05 11:56:36 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 10:36:03 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,26 @@ typename vector<T, Alloc>::iterator vector<T, Alloc>::end(void) {
 template<typename T, typename Alloc>
 typename vector<T, Alloc>::const_iterator vector<T, Alloc>::end(void) const {
 	return (const_iterator(&this->_data[this->_size]));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::reverse_iterator vector<T, Alloc>::rbegin(void) {
+	return (reverse_iterator(&this->_data[this->_size]));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::const_reverse_iterator vector<T, Alloc>::rbegin(void) const {
+	return (const_reverse_iterator(&this->_data[this->_size]));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::reverse_iterator vector<T, Alloc>::rend(void) {
+	return (reverse_iterator(this->_data));
+}
+
+template<typename T, typename Alloc>
+typename vector<T, Alloc>::const_reverse_iterator vector<T, Alloc>::rend(void) const {
+	return (const_reverse_iterator(this->_data));
 }
 
 // ******************************* Capacity ********************************* //
