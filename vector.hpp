@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 12:20:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 15:49:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -460,6 +460,43 @@ typename vector<T, Alloc>::const_iterator::reference
 	vector<T, Alloc>::const_iterator::operator[](difference_type n) const {
 	return (this->_value[n]);
 }
+
+// ####################### Non-member function overloads #######################
+
+template <class T, class Alloc>
+bool	operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	if (lhs.size() != rhs.size())
+		return false;
+	return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+}
+
+template <class T, class Alloc>
+bool	operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	return !(lhs == rhs);
+}
+
+template <class T, class Alloc>
+bool	operator< (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+
+template <class T, class Alloc>
+bool	operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	return !(rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool	operator> (const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	return (rhs < lhs);
+}
+
+template <class T, class Alloc>
+bool	operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs) {
+	return !(lhs < rhs);
+}
+
+template <class T, class Alloc>
+void	swap(vector<T, Alloc> &x, vector<T, Alloc> &y) { x.swap(y); }
 
 } // ******************************************************* ft namespace end //
 
