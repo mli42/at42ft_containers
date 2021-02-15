@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/01 14:08:02 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/15 15:29:37 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,37 @@ template <class IsTrue>
 struct enable_if<true, IsTrue> {
 	typedef IsTrue type;
 };
+
+// Relational Operators Comparison Functions
+
+template <class Ite1, class Ite2>
+bool	equal(Ite1 first1, Ite1 last1, Ite2 first2)
+{
+	while (first1 != last1)
+	{
+		if (*first1 != *first2)
+			return false;
+		++first1; ++first2;
+	}
+	return true;
+}
+
+// true if the first range compares lexicographically less than the second.
+// false otherwise (including when all the elements of both ranges are equivalent).
+
+template <class Ite1, class Ite2>
+bool	lexicographical_compare(Ite1 first1, Ite1 last1, Ite2 first2, Ite2 last2)
+{
+	while (first1 != last1 && first2 != last2 && *first1 == *first2)
+	{
+		++first1; ++first2;
+	}
+	if (first1 == last1)
+		return (first2 != last2);
+	else if (first2 == last2)
+		return (false);
+	return (*first1 < *first2);
+}
 
 } // ******************************************************* ft namespace end //
 
