@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 15:29:37 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/16 15:35:01 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,14 @@ bool	lexicographical_compare(Ite1 first1, Ite1 last1, Ite2 first2, Ite2 last2)
 		return (false);
 	return (*first1 < *first2);
 }
+
+template <typename T>
+struct	lstNode
+{
+	T			data;
+	lstNode		*next;
+	lstNode		*prev;
+};
 
 } // ******************************************************* ft namespace end //
 
