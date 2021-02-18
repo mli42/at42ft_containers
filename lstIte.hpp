@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/18 15:58:09 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/18 21:59:47 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ class lstIte {
 		reference	operator*(void) const;
 		pointer		operator->(void) const;
 
-		template <class, class>
 		friend class list;
+
 }; // *************************************************** class lstIte end //
 
 template <typename Spe>
