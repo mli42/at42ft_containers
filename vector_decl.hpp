@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 22:46:13 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 12:20:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/18 12:31:01 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ class vector {
 	class iterator : public RandIte<value_type> {
 		protected:
 		typedef RandIte<value_type> super;
+		iterator(value_type *src) : RandIte<value_type>(src) {};
 		private:
 		iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
 
 		public:
 		iterator(void) : RandIte<value_type>() {};
-		iterator(value_type *src) : RandIte<value_type>(src) {};
 		iterator(const iterator &src) : RandIte<value_type>(src) {};
 
 		typedef value_type&			reference;
@@ -62,13 +62,16 @@ class vector {
 		iterator			operator++(int) { return super::operator++(0); };
 		iterator			&operator--(void) { super::operator--(); return *this; };
 		iterator			operator--(int) { return super::operator--(0); };
+
+		template <class, class>
+		friend class vector;
 	};
 	class const_iterator : public RandIte<value_type> {
 		protected:
 		typedef RandIte<value_type> super;
+		const_iterator(value_type *src) : RandIte<value_type>(src) {};
 		public:
 		const_iterator(void) : RandIte<value_type>() {};
-		const_iterator(value_type *src) : RandIte<value_type>(src) {};
 		const_iterator(const RandIte<value_type> &src) : RandIte<value_type>(src) {};
 
 		typedef const value_type&		reference;
@@ -89,6 +92,9 @@ class vector {
 		const_iterator		operator++(int) { return super::operator++(0); };
 		const_iterator		&operator--(void) { super::operator--(); return *this; };
 		const_iterator		operator--(int) { return super::operator--(0); };
+
+		template <class, class>
+		friend class vector;
 	};
 	typedef ft::reverse_iterator<iterator>			reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
