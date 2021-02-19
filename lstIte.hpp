@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/18 21:59:47 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/19 10:34:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ template <typename Spe>
 class lstIte {
 	protected:
 		lstNode<Spe>					*_node;
-		lstIte(lstNode *src);
+		lstIte(lstNode<Spe> *src);
 
 	public:
 		typedef Spe						value_type;
 		typedef ptrdiff_t				difference_type;
+		typedef value_type&				reference;
+		typedef value_type*				pointer;
 
 		lstIte(void);
 		lstIte(const lstIte &src);
@@ -43,6 +45,7 @@ class lstIte {
 		reference	operator*(void) const;
 		pointer		operator->(void) const;
 
+		template <class, class>
 		friend class list;
 
 }; // *************************************************** class lstIte end //
@@ -51,7 +54,7 @@ template <typename Spe>
 lstIte<Spe>::lstIte(void) : _node(NULL) { return ; }
 
 template <typename Spe>
-lstIte<Spe>::lstIte(lstNode *src) : _node(src) { return ; }
+lstIte<Spe>::lstIte(lstNode<Spe> *src) : _node(src) { return ; }
 
 template <typename Spe>
 lstIte<Spe>::lstIte(const lstIte &src) { *this = src; }

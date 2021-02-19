@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/16 15:34:21 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/19 10:26:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIST_DECL_CLASS_HPP
 
 # include "base.hpp"
-# include "RandomIte.hpp"
+# include "lstIte.hpp"
 # include "ReverseIte.hpp"
 
 namespace ft {
@@ -32,64 +32,8 @@ class list {
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
 
-	class iterator : public RandIte<value_type> {
-		protected:
-		typedef RandIte<value_type> super;
-		private:
-		iterator(const super &src) : super(src) {};
-
-		public:
-		iterator(void) : super() {};
-		iterator(value_type *src) : super(src) {};
-		iterator(const iterator &src) : super(src) {};
-
-		typedef value_type&			reference;
-		typedef value_type*			pointer;
-
-		reference			operator*(void) const;
-		pointer				operator->(void) const;
-		iterator			&operator+=(difference_type n);
-		iterator			&operator-=(difference_type n);
-		reference			operator[](difference_type n) const;
-
-		difference_type		operator-(const super &n) const { return super::operator-(n); };
-		iterator			operator-(difference_type n) const { return super::operator-(n); };
-		iterator			operator+(difference_type n) const { return super::operator+(n); };
-		friend iterator		operator+(difference_type n, const iterator &rhs) { return rhs.operator+(n); };
-
-		iterator			&operator++(void) { super::operator++(); return *this; };
-		iterator			operator++(int) { return super::operator++(0); };
-		iterator			&operator--(void) { super::operator--(); return *this; };
-		iterator			operator--(int) { return super::operator--(0); };
-	};
-	class const_iterator : public RandIte<value_type> {
-		protected:
-		typedef RandIte<value_type> super;
-		public:
-		const_iterator(void) : super() {};
-		const_iterator(value_type *src) : super(src) {};
-		const_iterator(const super &src) : super(src) {};
-
-		typedef const value_type&		reference;
-		typedef const value_type*		pointer;
-
-		reference			operator*(void) const;
-		pointer				operator->(void) const;
-		const_iterator		&operator+=(difference_type n);
-		const_iterator		&operator-=(difference_type n);
-		reference			operator[](difference_type n) const;
-
-		difference_type		operator-(const super &n) const { return super::operator-(n); };
-		const_iterator		operator-(difference_type n) const { return super::operator-(n); };
-		const_iterator		operator+(difference_type n) const { return super::operator+(n); };
-		friend const_iterator	operator+(difference_type n, const const_iterator &rhs) { return rhs.operator+(n); };
-
-		const_iterator		&operator++(void) { super::operator++(); return *this; };
-		const_iterator		operator++(int) { return super::operator++(0); };
-		const_iterator		&operator--(void) { super::operator--(); return *this; };
-		const_iterator		operator--(int) { return super::operator--(0); };
-	};
-
+	typedef ft::lstIte<value_type>					iterator;
+	typedef ft::lstIte<const value_type>			const_iterator;
 	typedef ft::reverse_iterator<iterator>			reverse_iterator;
 	typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
