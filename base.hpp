@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/16 15:35:01 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 00:52:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,20 @@ struct	lstNode
 	T			data;
 	lstNode		*next;
 	lstNode		*prev;
+
+	lstNode(void) : data() { initialize(); };
+	lstNode(T &src) : data(src) { initialize(); };
+	lstNode &operator=(lstNode const &rhs) {
+		this->data = rhs.data;
+		this->next = rhs.next;
+		this->prev = rhs.prev;
+	};
+	virtual ~lstNode(void) { };
+
+	void initialize(void) {
+		this->next = this;
+		this->prev = this;
+	}
 };
 
 } // ******************************************************* ft namespace end //

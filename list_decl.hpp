@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 23:13:42 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 00:33:20 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,10 @@ class list {
 	size_type				_size;
 	const static size_type	_max_size;
 
-
 	template <class Ite>
-	void				_create_data(difference_type capacity, Ite first, Ite last);
+	void				_create_data_it(Ite first, Ite last);
 	void				_create_data(size_type size, const value_type &val = value_type());
 	void				_destroy_data(void);
-	template <class Ite, class Iterator>
-	static void			_cpy_data(Ite start, Iterator first, Iterator last);
 	void				_cpy_content(list &src);
 
 }; // **************************************************** class ft::list end //

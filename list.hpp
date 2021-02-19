@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 21:54:46 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 00:54:30 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ namespace ft {
 template <typename T, typename Alloc>
 list<T, Alloc>::list(const allocator_type &alloc) : \
 	_data(), _alloc(alloc), _size(0) {
-	this->_data.next = &this->_data;
-	this->_data.prev = &this->_data;
 	return ;
 }
 
 template <typename T, typename Alloc>
 list<T, Alloc>::list(size_type size, const value_type &val, const allocator_type &alloc) : \
 	_data(), _alloc(alloc), _size(0) {
-	this->_data.next = &this->_data;
-	this->_data.prev = &this->_data;
 	this->_create_data(size, val);
 	return ;
 }
@@ -38,15 +34,11 @@ list<T, Alloc>::list(size_type size, const value_type &val, const allocator_type
 template <typename T, typename Alloc> template <class Ite>
 list<T, Alloc>::list(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first,
 		Ite last, const allocator_type &alloc) : _data(), _alloc(alloc), _size(0) {
-	this->_data.next = &this->_data;
-	this->_data.prev = &this->_data;
-	this->_create_data(last - first, first, last);
+	this->_create_data_it(first, last);
 }
 
 template<typename T, typename Alloc>
 list<T, Alloc>::list(list const &src) : _data(), _alloc(allocator_type()), _size(0) {
-	this->_data.next = &this->_data;
-	this->_data.prev = &this->_data;
 	*this = src;
 }
 
@@ -59,8 +51,7 @@ template<typename T, typename Alloc>
 list<T, Alloc>	&list<T, Alloc>::operator=(list const &rhs) {
 	if (this == &rhs)
 		return (*this);
-	const_iterator first = rhs.begin(), last = rhs.end();
-	this->_create_data(last - first, first, last);
+	this->_create_data_it(rhs.begin(), rhs.end());
 	return (*this);
 }
 
@@ -217,32 +208,61 @@ void	list<T, Alloc>::swap(list &x) {
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::clear(void) {
+	iterator it = this->begin(), ite = this->end(), tmp;
+
+	while (it != ite)
+	{
+		tmp = it++;
+		delete tmp._node;
+	}
+	this->_size = 0; this->_data.initialize();
 }
 
 // ################################ Private ####################################
 
 template<typename T, typename Alloc> template <class Ite>
-void	list<T, Alloc>::_create_data(difference_type capacity, Ite first, Ite last) {
-	(void)capacity; (void)first; (void)last;
+void	list<T, Alloc>::_create_data_it(Ite first, Ite last) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite && first != last)
+		*it++ = *first++;
+	while (it != this->end())
+		this->pop_back();
+	while (first != last)
+		this->push_back(*first++);
 }
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::_create_data(size_type size, const value_type &val) {
-	(void)size; (void)val;
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite && size != 0)
+	{
+		*it++ = val;
+		--size;
+	}
+	while (it != this->end())
+		this->pop_back();
+	while (size != 0)
+	{
+		this->push_back(val);
+		--size;
+	}
 }
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::_destroy_data(void) {
-}
-
-template<typename T, typename Alloc> template <class Ite, class Iterator>
-void	list<T, Alloc>::_cpy_data(Ite start, Iterator first, Iterator last) {
-	(void)start; (void)first; (void)last;
+	if (this->empty())
+		return ;
+	this->clear();
 }
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::_cpy_content(list<T, Alloc> &src) {
-	(void)src;
+	this->_data = src._data;
+	this->_alloc = src._alloc;
+	this->_size = src._size;
+	src._data.initialize(); src._size = 0;
 }
 
 template <typename T, typename Alloc>
