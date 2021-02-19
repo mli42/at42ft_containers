@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 10:26:20 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/19 15:29:48 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ class list {
 	typedef typename allocator_type::const_reference	const_reference;
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_pointer		const_pointer;
+	typedef ft::lstNode<value_type>						node_type;
 
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
@@ -99,10 +100,19 @@ class list {
 
 	protected:
 	private:
-	lstNode<value_type>		_data;
+	node_type				_data;
 	allocator_type			_alloc;
 	size_type				_size;
 	const static size_type	_max_size;
+
+
+	template <class Ite>
+	void				_create_data(difference_type capacity, Ite first, Ite last);
+	void				_create_data(size_type size, const value_type &val = value_type());
+	void				_destroy_data(void);
+	template <class Ite, class Iterator>
+	static void			_cpy_data(Ite start, Iterator first, Iterator last);
+	void				_cpy_content(list &src);
 
 }; // **************************************************** class ft::list end //
 
