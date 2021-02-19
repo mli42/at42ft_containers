@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 15:29:48 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/19 23:13:42 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ class list {
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
 
-	typedef ft::lstIte<value_type>					iterator;
-	typedef ft::lstIte<const value_type>			const_iterator;
-	typedef ft::reverse_iterator<iterator>			reverse_iterator;
-	typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+	typedef ft::lstIte<value_type, node_type>			iterator;
+	typedef ft::lstIte<const value_type, node_type>		const_iterator;
+	typedef ft::reverse_iterator<iterator>				reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 // ************************** Member functions ****************************** //
 

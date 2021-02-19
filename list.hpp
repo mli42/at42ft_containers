@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 15:31:46 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/19 21:54:46 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,42 +68,42 @@ list<T, Alloc>	&list<T, Alloc>::operator=(list const &rhs) {
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator list<T, Alloc>::begin(void) {
-	return this->_data.next;
+	return iterator(this->_data.next);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::begin(void) const {
-	return this->_data.next;
+	return const_iterator(this->_data.next);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator list<T, Alloc>::end(void) {
-	return this->_data;
+	return iterator(&this->_data);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::end(void) const {
-	return this->_data;
+	return const_iterator(&this->_data);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::reverse_iterator list<T, Alloc>::rbegin(void) {
-	return this->_data;
+	return reverse_iterator(&this->_data);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_reverse_iterator list<T, Alloc>::rbegin(void) const {
-	return this->_data;
+	return const_reverse_iterator(&this->_data);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::reverse_iterator list<T, Alloc>::rend(void) {
-	return this->_data.next;
+	return reverse_iterator(this->_data.next);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_reverse_iterator list<T, Alloc>::rend(void) const {
-	return this->_data.next;
+	return const_reverse_iterator(this->_data.next);
 }
 
 // ******************************* Capacity ********************************* //
