@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 21:05:31 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 22:46:26 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,30 @@ void	list<T, Alloc>::assign(size_type n, const value_type &val) {
 }
 
 template<typename T, typename Alloc>
+void		list<T, Alloc>::push_front(const value_type &val) {
+	node_type	*newNode = new node_type;
+
+	++this->_size;
+	newNode->data = val;
+	newNode->next = this->_data.next;
+	newNode->prev = &this->_data;
+	this->_data.next->prev = newNode;
+	this->_data.next = newNode;
+}
+
+template<typename T, typename Alloc>
+void		list<T, Alloc>::pop_front(void) {
+	node_type	*oldNode = this->_data.next;
+
+	if (this->empty())
+		return ;
+	--this->_size;
+	this->_data.next = oldNode->next;
+	this->_data.next->prev = &this->_data;
+	delete oldNode;
+}
+
+template<typename T, typename Alloc>
 void		list<T, Alloc>::push_back(const value_type &val) {
 	node_type	*newNode = new node_type;
 
@@ -216,6 +240,14 @@ void	list<T, Alloc>::clear(void) {
 		delete tmp._node;
 	}
 	this->_size = 0; this->_data.initialize();
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::resize(size_type size, const value_type &val) {
+	while (size < this->_size)
+		this->pop_back();
+	while (size > this->_size)
+		this->push_back(val);
 }
 
 // ################################ Private ####################################

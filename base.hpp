@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 13:28:47 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 22:24:42 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,15 @@ struct	lstNode
 	lstNode		*prev;
 
 	lstNode(void) : data() { initialize(); };
+	lstNode &operator=(lstNode &rhs) {
+		if (this == &rhs)
+			return *this;
+		this->data = rhs.data; this->next = rhs.next; this->prev = rhs.prev;
+		this->next->prev = this;
+		this->prev->next = this;
+		rhs.initialize();
+		return *this;
+	}
 	void initialize(void) {
 		this->next = this;
 		this->prev = this;
