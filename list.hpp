@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 13:00:57 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 21:05:31 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,8 @@ void	list<T, Alloc>::_create_data_it(Ite first, Ite last) {
 
 	while (it != ite && first != last)
 		*it++ = *first++;
-	while (it != this->end())
+	--it;
+	while (it != --this->end())
 		this->pop_back();
 	while (first != last)
 		this->push_back(*first++);
@@ -241,7 +242,8 @@ void	list<T, Alloc>::_create_data(size_type size, const value_type &val) {
 		*it++ = val;
 		--size;
 	}
-	while (it != this->end())
+	--it;
+	while (it != --this->end())
 		this->pop_back();
 	while (size != 0)
 	{
