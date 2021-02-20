@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 00:54:30 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 13:00:57 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typename list<T, Alloc>::iterator list<T, Alloc>::end(void) {
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::end(void) const {
-	return const_iterator(&this->_data);
+	return const_iterator(this->_data.next->prev);
 }
 
 template<typename T, typename Alloc>
@@ -84,7 +84,7 @@ typename list<T, Alloc>::reverse_iterator list<T, Alloc>::rbegin(void) {
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_reverse_iterator list<T, Alloc>::rbegin(void) const {
-	return const_reverse_iterator(&this->_data);
+	return const_reverse_iterator(this->_data.next->prev);
 }
 
 template<typename T, typename Alloc>

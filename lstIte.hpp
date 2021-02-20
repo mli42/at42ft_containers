@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/19 23:50:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/20 12:47:58 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ template <typename Spe, typename node_type>
 class lstIte {
 	protected:
 		node_type						*_node;
-		lstIte(const node_type *src);
+		lstIte(node_type *src);
 
 	public:
 		typedef Spe						value_type;
@@ -60,10 +60,8 @@ template <typename Spe, typename node_type>
 lstIte<Spe, node_type>::lstIte(void) : _node(NULL) { return ; }
 
 template <typename Spe, typename node_type>
-lstIte<Spe, node_type>::lstIte(const node_type *src) {
-	this->_node->data = src->data;
-	this->_node->next = src->next;
-	this->_node->prev = src->prev;
+lstIte<Spe, node_type>::lstIte(node_type *src) {
+	this->_node = src;
 }
 
 template <typename Spe, typename node_type>
