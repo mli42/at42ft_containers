@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/21 14:32:25 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/21 16:08:17 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,22 @@ void	list<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_if
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator	list<T, Alloc>::erase(iterator ite) {
-	return (this->erase(ite, ite + 1));
+	return (this->erase(ite++, ite));
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator	list<T, Alloc>::erase(iterator first, iterator last) {
-	(void)first; (void)last;
+	node_type *last_del = last._node;
+	node_type *before_del = first._node->prev;
+
+	before_del->next = last_del;
+	last_del->prev = before_del;
+	while (first != last)
+	{
+		--this->_size;
+		delete (first++)._node;
+	}
+	return last;
 }
 
 template<typename T, typename Alloc>
