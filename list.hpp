@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/21 16:08:17 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/21 20:11:51 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,16 @@ const_reference	list<T, Alloc>::back(void) const {
 
 template<typename T, typename Alloc> template <class Ite>
 void	list<T, Alloc>::assign(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first, Ite last) {
-	(void)first; (void)last;
+	list newList(first, last);
+
+	this->swap(newList);
 }
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::assign(size_type n, const value_type &val) {
-	(void)n; (void)val;
+	list newList(n, val);
+
+	this->swap(newList);
 }
 
 template<typename T, typename Alloc>
@@ -198,17 +202,42 @@ void		list<T, Alloc>::pop_back(void) {
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
 iterator	list<T, Alloc>::insert(iterator position, const value_type &val) {
-	(void)position; (void)val;
+	this->insert(position, 1, val);
+	return (--position);
 }
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::insert(iterator position, size_type n, const value_type &val) {
-	(void)position; (void)n; (void)val;
+	node_type *after = position._node;
+	node_type *after_end = this->_data.prev;
+
+	--position;
+	position._node->next = &this->_data;
+	this->_data.prev = position._node;
+	while (n-- != 0)
+		this->push_back(val);
+	if (after == &this->_data)
+		return ;
+	after->prev = this->_data.prev;
+	this->_data.prev->next = after;
+	this->_data.prev = after_end;
 }
 
 template<typename T, typename Alloc> template <class Ite>
 void	list<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type last) {
-	(void)position; (void)first; (void)last;
+	node_type *after = position._node;
+	node_type *after_end = this->_data.prev;
+
+	--position;
+	position._node->next = &this->_data;
+	this->_data.prev = position._node;
+	while (first != last)
+		this->push_back(*first++);
+	if (after == &this->_data)
+		return ;
+	after->prev = this->_data.prev;
+	this->_data.prev->next = after;
+	this->_data.prev = after_end;
 }
 
 template<typename T, typename Alloc>
