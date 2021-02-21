@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 21:52:30 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/21 14:52:36 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ class lstIte {
 		virtual ~lstIte(void);
 		lstIte	&operator=(lstIte const &rhs);
 
-		bool	operator==(const lstIte &rhs) const;
-		bool	operator!=(const lstIte &rhs) const;
+		template <class U> bool	operator==(const lstIte<U, node_type> &rhs) const;
+		template <class U> bool	operator!=(const lstIte<U, node_type> &rhs) const;
 
 		lstIte		&operator++(void);
 		lstIte		operator++(int);
@@ -79,13 +79,13 @@ lstIte<Spe, node_type> &lstIte<Spe, node_type>::operator=(const lstIte &rhs) {
 	return (*this);
 }
 
-template <typename Spe, typename node_type>
-bool	lstIte<Spe, node_type>::operator==(const lstIte &rhs) const {
+template <typename Spe, typename node_type> template <class U>
+bool	lstIte<Spe, node_type>::operator==(const lstIte<U, node_type> &rhs) const {
 	return (this->_node == rhs._node);
 }
 
-template <typename Spe, typename node_type>
-bool	lstIte<Spe, node_type>::operator!=(const lstIte &rhs) const {
+template <typename Spe, typename node_type> template <class U>
+bool	lstIte<Spe, node_type>::operator!=(const lstIte<U, node_type> &rhs) const {
 	return (this->_node != rhs._node);
 }
 

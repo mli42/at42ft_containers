@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 13:57:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/21 14:31:11 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ class reverse_iterator {
 		template <class U> reverse_iterator &operator=(const reverse_iterator<U> &u);
 		Iterator base(void) const { return this->_base; };
 
-		reference			operator*(void) const { return (this->_base - 1).operator*(); };
+		reference			operator*(void) const { return (--super(this->_base)).operator*(); };
 		pointer				operator->(void) const { return &this->operator*(); };
 
 		reverse_iterator	&operator++(void) { this->_base.operator--(); return *this; };
