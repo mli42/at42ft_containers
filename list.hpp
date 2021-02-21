@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/21 20:11:51 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/21 20:27:51 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,12 @@ bool	list<T, Alloc>::empty(void) const {
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
 reference		list<T, Alloc>::front(void) {
-	return this->begin().data;
+	return *this->begin();
 }
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
 const_reference	list<T, Alloc>::front(void) const {
-	return this->begin().data;
+	return *this->begin();
 }
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
