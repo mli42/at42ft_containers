@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/21 20:27:51 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/22 12:33:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,23 @@ void	list<T, Alloc>::resize(size_type size, const value_type &val) {
 		this->pop_back();
 	while (size > this->_size)
 		this->push_back(val);
+}
+
+// ******************************* Operations ******************************* //
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::reverse(void) {
+	iterator	it = iterator(&this->_data);
+	size_type	size = this->_size + 1;
+	node_type	*tmp;
+
+	while (size != 0)
+	{
+		tmp = it._node->next;
+		it._node->next = it._node->prev;
+		it._node->prev = tmp;
+		++it; --size;
+	}
 }
 
 // ################################ Private ####################################

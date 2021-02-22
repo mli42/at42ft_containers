@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 00:33:20 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/22 12:11:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,32 @@ class list {
 	void		swap(list &x);
 	void		clear(void);
 	void		resize(size_type n, const value_type &val = value_type());
+
+// ******************************* Operations ******************************* //
+
+	void		splice(iterator position, list &x);
+	void		splice(iterator position, list &x, iterator i);
+	void		splice(iterator position, list &x, iterator first, iterator last);
+
+	template <class Predicate>
+	void		remove_if(Predicate pred);
+	void		remove(const value_type &val);
+
+	template <class BinaryPredicate>
+	void		unique(BinaryPredicate binary_pred);
+	void		unique(void);
+
+	template <class Compare>
+	void		merge(list &x, Compare comp);
+	void		merge(list &x);
+
+	template <class Compare>
+	void		sort(Compare comp);
+	void		sort(void);
+
+	void		reverse(void);
+
+// ******************************* Non-public ******************************* //
 
 	protected:
 	private:
