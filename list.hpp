@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/22 12:33:38 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/23 12:26:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,93 @@ void	list<T, Alloc>::resize(size_type size, const value_type &val) {
 }
 
 // ******************************* Operations ******************************* //
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::splice(iterator position, list &x) {
+	if (this == &x)
+		return ; // Undefined behavior
+	this->splice(position, x, x.begin(), x.end());
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::splice(iterator position, list &x, iterator i) {
+	this->splice(position, x, i++, i);
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::splice(iterator position, list &x, iterator first, iterator last) {
+	node_type	*before = position._node->prev;
+	node_type	*_position = position._node;
+	node_type	*_first = first._node, *_last = last._node->prev;
+	size_type	len;
+
+	// Change both sizes
+	for (len = 0; first != last; ++len)
+		++first;
+	this->_size += len;
+	x._size -= len;
+	// Unlink range of iterator from list x
+	_first->prev->next = _last->next;
+	_last->next->prev = _first->prev;
+	// Link range into position
+	before->next = _first;
+	_first->prev = before;
+	_position->prev = _last;
+	_last->next = _position;
+}
+
+template<typename T, typename Alloc> template <class Predicate>
+void	list<T, Alloc>::remove_if(Predicate pred) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (pred(*it))
+			this->erase(it--);
+		++it;
+	}
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::remove(const value_type &val) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (*it == val)
+			this->erase(it--);
+		++it;
+	}
+}
+
+template<typename T, typename Alloc> template <class BinaryPredicate>
+void	list<T, Alloc>::unique(BinaryPredicate binary_pred) {
+	iterator it = this->begin(), ite = this->end();
+	iterator tmp;
+
+	tmp = it++;
+	while (it != ite)
+	{
+		if (binary_pred(*it, *tmp))
+			this->erase(it--);
+		tmp = it++;
+	}
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::unique(void) {
+	iterator it = this->begin(), ite = this->end();
+	iterator tmp;
+
+	tmp = it++;
+	while (it != ite)
+	{
+		if (*it == *tmp)
+			this->erase(it--);
+		tmp = it++;
+	}
+
+}
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::reverse(void) {
