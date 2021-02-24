@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/24 14:46:58 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/24 15:05:34 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,18 +363,14 @@ void	list<T, Alloc>::unique(BinaryPredicate binary_pred) {
 	}
 }
 
+template <typename T>
+static bool	ft_eq(const T &a, const T &b) {
+	return (a == b);
+}
+
 template<typename T, typename Alloc>
 void	list<T, Alloc>::unique(void) {
-	iterator it = this->begin(), ite = this->end();
-	iterator tmp;
-
-	tmp = it++;
-	while (it != ite)
-	{
-		if (*it == *tmp)
-			this->erase(it--);
-		tmp = it++;
-	}
+	this->unique(ft_eq<value_type>);
 }
 
 template<typename T, typename Alloc> template <class Compare>
@@ -394,21 +390,16 @@ void	list<T, Alloc>::merge(list &x, Compare comp) {
 		this->splice(this->end(), x);
 }
 
+template <typename T>
+static bool	ft_less(const T &a, const T &b) {
+	return (a < b);
+}
+
 template<typename T, typename Alloc>
 void	list<T, Alloc>::merge(list &x) {
 	if (this == &x)
 		return ;
-	iterator this_it = this->begin(), x_it = x.begin();
-
-	while (x_it != x.end() && this_it != this->end())
-	{
-		if (*x_it < *this_it)
-			this->splice(this_it, x, x_it++);
-		else
-			++this_it;
-	}
-	if (!x.empty())
-		this->splice(this->end(), x);
+	this->merge(x, ft_less<value_type>);
 }
 
 template<typename T, typename Alloc>
