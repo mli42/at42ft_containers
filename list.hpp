@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/23 12:26:54 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/24 14:46:58 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,7 +375,40 @@ void	list<T, Alloc>::unique(void) {
 			this->erase(it--);
 		tmp = it++;
 	}
+}
 
+template<typename T, typename Alloc> template <class Compare>
+void	list<T, Alloc>::merge(list &x, Compare comp) {
+	if (this == &x)
+		return ;
+	iterator this_it = this->begin(), x_it = x.begin();
+
+	while (x_it != x.end() && this_it != this->end())
+	{
+		if (comp(*x_it, *this_it))
+			this->splice(this_it, x, x_it++);
+		else
+			++this_it;
+	}
+	if (!x.empty())
+		this->splice(this->end(), x);
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::merge(list &x) {
+	if (this == &x)
+		return ;
+	iterator this_it = this->begin(), x_it = x.begin();
+
+	while (x_it != x.end() && this_it != this->end())
+	{
+		if (*x_it < *this_it)
+			this->splice(this_it, x, x_it++);
+		else
+			++this_it;
+	}
+	if (!x.empty())
+		this->splice(this->end(), x);
 }
 
 template<typename T, typename Alloc>
