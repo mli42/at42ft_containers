@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/22 12:11:54 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/25 10:32:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,9 @@ class list {
 	void				_create_data(size_type size, const value_type &val = value_type());
 	void				_destroy_data(void);
 	void				_cpy_content(list &src);
+
+	template <class Compare>
+	void				ft_mergesort(Compare comp);
 
 }; // **************************************************** class ft::list end //
 

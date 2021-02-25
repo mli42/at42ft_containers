@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/24 15:05:34 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/25 10:32:33 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,6 +400,34 @@ void	list<T, Alloc>::merge(list &x) {
 	if (this == &x)
 		return ;
 	this->merge(x, ft_less<value_type>);
+}
+
+template<typename T, typename Alloc> template <class Compare>
+void	list<T, Alloc>::ft_mergesort(Compare comp) {
+	if (this->_size <= 1)
+		return ;
+	size_type mid = this->_size / 2;
+	iterator it = this->begin();
+	list tmp;
+
+	while (mid-- != 0)
+		++it;
+	tmp.splice(tmp.begin(), *this, it, this->end());
+
+	this->ft_mergesort(comp);
+	tmp.ft_mergesort(comp);
+
+	this->merge(tmp, comp);
+}
+
+template<typename T, typename Alloc> template <class Compare>
+void	list<T, Alloc>::sort(Compare comp) {
+	this->ft_mergesort(comp);
+}
+
+template<typename T, typename Alloc>
+void	list<T, Alloc>::sort(void) {
+	this->sort(ft_less<value_type>);
 }
 
 template<typename T, typename Alloc>
