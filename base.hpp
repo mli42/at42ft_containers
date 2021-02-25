@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/20 22:24:42 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/25 11:08:53 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,20 @@ bool	equal(Ite1 first1, Ite1 last1, Ite2 first2)
 		++first1; ++first2;
 	}
 	return true;
+}
+
+// Ite len
+
+template <class Ite>
+size_t	itlen(Ite first, Ite last) {
+	size_t	i = 0;
+
+	while (first != last)
+	{
+		++first;
+		++i;
+	}
+	return (i);
 }
 
 // true if the first range compares lexicographically less than the second.

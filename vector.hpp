@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:55:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/15 15:49:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/25 12:06:25 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ vector<T, Alloc>::vector(size_type size, const value_type &val,
 template <typename T, typename Alloc> template <class Ite>
 vector<T, Alloc>::vector(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first,
 		Ite last, const allocator_type &alloc) : _data(NULL), _alloc(alloc), _size(0), _capacity(0) {
-	this->_create_data(last - first, first, last);
+	this->_create_data(ft::itlen(first, last), first, last);
 }
 
 template<typename T, typename Alloc>
@@ -55,7 +55,8 @@ vector<T, Alloc>	&vector<T, Alloc>::operator=(vector const &rhs) {
 		return (*this);
 	const_iterator first = rhs.begin();
 	const_iterator last = rhs.end();
-	this->_create_data(last - first, first, last);
+	size_type len = ft::itlen(first, last);
+	this->_create_data((len > this->_capacity) ? len : this->_capacity, first, last);
 	return (*this);
 }
 
@@ -220,7 +221,7 @@ const_reference	vector<T, Alloc>::back(void) const {
 
 template<typename T, typename Alloc> template <class Ite>
 void	vector<T, Alloc>::assign(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first, Ite last) {
-	size_type size = last - first;
+	size_type size = ft::itlen(first, last);
 
 	if (size > this->_capacity)
 		this->_create_data(size, first, last);
@@ -289,7 +290,7 @@ void	vector<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_
 	difference_type const	old_end_idx = this->end() - this->begin();
 	iterator				old_end, end;
 
-	this->resize(this->_size + (last - first));
+	this->resize(this->_size + (ft::itlen(first, last)));
 
 	end = this->end();
 	position = this->begin() + idx;
@@ -309,7 +310,7 @@ template<typename T, typename Alloc>
 typename vector<T, Alloc>::iterator	vector<T, Alloc>::erase(iterator first, iterator last) {
 	iterator tmp = first;
 	iterator end = this->end();
-	size_type deleted = last - first;
+	size_type deleted = ft::itlen(first, last);
 
 	while (last != end)
 	{
@@ -342,11 +343,12 @@ void	vector<T, Alloc>::clear(void) {
 template<typename T, typename Alloc> template <class Ite>
 void	vector<T, Alloc>::_create_data(difference_type capacity, Ite first, Ite last) {
 	vector<T, Alloc> res;
+	difference_type len = ft::itlen(first, last);
 
-	if (capacity < last - first || capacity < 0)
+	if (capacity < len || capacity < 0)
 		__APPLE__ ? throw std::length_error("vector") : throw std::bad_alloc();
 	res._alloc = this->_alloc;
-	res._size = last - first; res._capacity = capacity;
+	res._size = len; res._capacity = capacity;
 	res._data = res._alloc.allocate(capacity);
 	for (size_type i = 0; first != last; ++first)
 		res._alloc.construct(&res._data[i++], *first);
