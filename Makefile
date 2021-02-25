@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/20 16:39:23 by mli               #+#    #+#              #
-#    Updated: 2021/02/18 12:44:51 by mli              ###   ########.fr        #
+#    Updated: 2021/02/25 14:45:37 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ ifeq ($(f), f)
 endif
 
 SRCS_FILES = main.cpp
-CONTAINERS = RandomIte vector list
+CONTAINERS = RandomIte vector list map
 CONTAINERS_FILES = base ${CONTAINERS} ${addsuffix _decl, ${CONTAINERS}} ReverseIte lstIte
 HEADER_FILES = ${addsuffix .hpp, ${CONTAINERS_FILES}}
 
