@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/25 14:37:31 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/26 11:15:21 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,32 @@ struct	lstNode
 	void initialize(void) {
 		this->next = this;
 		this->prev = this;
+	}
+};
+
+template <typename T>
+struct	mapNode
+{
+	T			data;
+	mapNode		*parent;
+	mapNode		*left;
+	mapNode		*right;
+
+	mapNode(void) : data() { initialize(); };
+	mapNode &operator=(mapNode &rhs) {
+		if (this == &rhs)
+			return (*this);
+		this->data = rhs.data; this->parent = rhs.parent;
+		this->left = rhs.left; this->right = rhs.right;
+		if (this->left)
+			this->left->parent = this;
+		if (this->right)
+			this->right->parent = this;
+		((this->parent->left == &rhs) ? this->parent->left : this->parent->right) = this;
+		return (*this);
+	}
+	void initialize(void) {
+		this->parent = NULL; this->left = NULL; this->right = NULL;
 	}
 };
 
