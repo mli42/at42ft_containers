@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/20 16:39:23 by mli               #+#    #+#              #
-#    Updated: 2021/02/25 14:45:37 by mli              ###   ########.fr        #
+#    Updated: 2021/02/26 14:09:40 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ endif
 
 SRCS_FILES = main.cpp
 CONTAINERS = RandomIte vector list map
-CONTAINERS_FILES = base ${CONTAINERS} ${addsuffix _decl, ${CONTAINERS}} ReverseIte lstIte
+CONTAINERS_FILES = base ${CONTAINERS} ${addsuffix _decl, ${CONTAINERS}} \
+				   ReverseIte lstIte mapIte
 HEADER_FILES = ${addsuffix .hpp, ${CONTAINERS_FILES}}
 
 OBJS_PATH = ./obj/
