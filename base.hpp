@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/27 22:44:41 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/27 23:04:43 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,20 @@ struct	mapNode
 	}
 	bool isGhost(void) const { return (this->_ghost == true); };
 };
+
+template <typename T>
+mapNode<T>	*farRight(mapNode<T> *node) {
+	while (node->right != NULL)
+		node = node->right;
+	return (node);
+}
+
+template <typename T>
+mapNode<T>	*farLeft(mapNode<T> *node) {
+	while (node->left != NULL)
+		node = node->left;
+	return (node);
+}
 
 // pair struct for ft::map
 
