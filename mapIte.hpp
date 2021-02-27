@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:47:56 by mli               #+#    #+#             */
-/*   Updated: 2021/02/26 15:53:28 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/27 23:48:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,13 @@ class mapIte {
 		template <class, class>
 		friend class mapIte;
 
-}; // *************************************************** class mapIte end //
+}; // ****************************************************** class mapIte end //
 
 template <typename T, typename node_type>
 mapIte<T, node_type>::mapIte(void) : _node(NULL) { return ; }
 
 template <typename T, typename node_type>
-mapIte<T, node_type>::mapIte(node_type *src) {
-	this->_node = src;
-}
+mapIte<T, node_type>::mapIte(node_type *src) { this->_node = src; }
 
 template <typename T, typename node_type>
 mapIte<T, node_type>::mapIte(const mapIte &src) { *this = src; }
@@ -91,7 +89,19 @@ bool	mapIte<T, node_type>::operator!=(const mapIte<U, node_type> &rhs) const {
 
 template <typename T, typename node_type>
 mapIte<T, node_type> &mapIte<T, node_type>::operator++(void) {
-	// To do
+	if (this->_node->right != NULL)
+		this->_node = farLeft(this->_node->right);
+	else
+	{
+		node_type	*child = this->_node;
+
+		this->_node = this->_node->parent;
+		while (this->_node && child == this->_node->right)
+		{
+			child = this->_node;
+			this->_node = this->_node->parent;
+		}
+	}
 	return (*this);
 }
 
@@ -104,7 +114,19 @@ mapIte<T, node_type> mapIte<T, node_type>::operator++(int) {
 
 template <typename T, typename node_type>
 mapIte<T, node_type>& mapIte<T, node_type>::operator--(void) {
-	// To do
+	if (this->_node->left != NULL)
+		this->_node = farRight(this->_node->left);
+	else
+	{
+		node_type	*child = this->_node;
+
+		this->_node = this->_node->parent;
+		while (this->_node && child == this->_node->left)
+		{
+			child = this->_node;
+			this->_node = this->_node->parent;
+		}
+	}
 	return (*this);
 }
 
