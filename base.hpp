@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/26 11:15:21 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/27 22:44:41 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,16 @@ struct	lstNode
 template <typename T>
 struct	mapNode
 {
+	private:
+	const bool	_ghost;
+
+	public:
 	T			data;
 	mapNode		*parent;
 	mapNode		*left;
 	mapNode		*right;
 
-	mapNode(void) : data() { initialize(); };
+	mapNode(const bool ghost = false) : _ghost(ghost), data() { initialize(); };
 	mapNode &operator=(mapNode &rhs) {
 		if (this == &rhs)
 			return (*this);
@@ -143,6 +147,7 @@ struct	mapNode
 	void initialize(void) {
 		this->parent = NULL; this->left = NULL; this->right = NULL;
 	}
+	bool isGhost(void) const { return (this->_ghost == true); };
 };
 
 // pair struct for ft::map
