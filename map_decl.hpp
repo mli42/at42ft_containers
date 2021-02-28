@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:56:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/25 15:57:15 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/28 15:28:03 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 namespace ft {
 
-template < class Key,                                   // map::key_type
-		 class T,                                       // map::mapped_type
-		 class Compare = less<Key>,                     // map::key_compare
-		 class Alloc = allocator<pair<const Key,T> >    // map::allocator_type
+template < class Key,                                     // map::key_type
+		 class T,                                         // map::mapped_type
+		 class Compare = std::less<Key>,                  // map::key_compare
+		 class Alloc = std::allocator<pair<const Key,T> > // map::allocator_type
 		 >
 class map {
 	public:
@@ -101,7 +101,8 @@ class map {
 
 	protected:
 	private:
-	node_type				_data;
+	node_ptr				_data;
+	key_compare				_key_cmp;
 	allocator_type			_alloc;
 	size_type				_size;
 	const static size_type	_max_size;
