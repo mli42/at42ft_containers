@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 15:47:56 by mli               #+#    #+#             */
-/*   Updated: 2021/02/27 23:48:50 by mli              ###   ########.fr       */
+/*   Updated: 2021/02/28 15:53:53 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ class mapIte {
 			return mapIte<const T, node_type>(this->_node);
 		}
 
-		template <class, class>
+		template <class, class, class, class>
 		friend class map;
 
 		template <class, class>
