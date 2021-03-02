@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:56:50 by mli               #+#    #+#             */
-/*   Updated: 2021/03/01 12:22:54 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 11:35:48 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ class map {
 
 	void				_btree_clear(node_ptr node);
 	void				_btree_add(node_ptr node);
+	void				_btree_rm(node_ptr node);
 
 }; // ***************************************************** class ft::map end //
 

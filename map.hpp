@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 11:21:23 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 15:01:14 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,36 @@ void	map<Key, T, Compare, Alloc>::_btree_add(node_ptr newNode) {
 		ghost->parent = farRight(newNode); // Using farRight(newNode)
 		farRight(newNode)->right = ghost; // in case newNode isnt alone
 	}
+}
+
+template<class Key, class T, class Compare, class Alloc>
+void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
+	node_ptr	replaceNode = NULL;
+	node_ptr	*rmPlace = &this->_data;
+
+	if (rmNode->parent)
+		rmPlace = (&rmNode->parent->left == &rmNode ? &rmNode->parent->left : &rmNode->parent->right);
+	if (rmNode->left == NULL && rmNode->right == NULL)
+		;
+	else if (rmNode->left == NULL) // left == NULL && right != NULL
+		replaceNode = rmNode->right;
+	else // left != NULL && right ?= NULL
+	{
+		replaceNode = farRight(rmNode->left);
+		if (replaceNode != rmNode->left)
+			if ((replaceNode->parent->right = replaceNode->left))
+				replaceNode->left->parent = replaceNode->parent;
+	}
+	if (replaceNode)
+	{
+		replaceNode->parent = rmNode->parent;
+		if (rmNode->left != replaceNode && (replaceNode->left = rmNode->left))
+			replaceNode->left->parent = replaceNode;
+		if (rmNode->right != replaceNode && (replaceNode->right = rmNode->right))
+			replaceNode->right->parent = replaceNode;
+	}
+	*rmPlace = replaceNode;
+	delete rmNode;
 }
 
 template <class Key, class T, class Compare, class Alloc>
