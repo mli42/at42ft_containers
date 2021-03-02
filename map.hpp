@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 15:01:14 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 22:57:31 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ template<class Key, class T, class Compare, class Alloc>
 map<Key, T, Compare, Alloc>	&map<Key, T, Compare, Alloc>::operator=(map const &rhs) {
 	if (this == &rhs)
 		return (*this);
+	this->clear();
 	this->_create_data_it(rhs.begin(), rhs.end());
 	return (*this);
 }
@@ -139,13 +140,14 @@ void	map<Key, T, Compare, Alloc>::swap(map &x) {
 
 template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::clear(void) {
-	node_ptr ghost = this->end();
+	node_ptr ghost = farRight(this->_data);
 
 	if (this->_size == 0)
 		return ;
 	ghost->parent->right = NULL;
 	this->_btree_clear(this->_data);
 	this->_data = ghost;
+	this->_size = 0;
 }
 
 // ******************************* Operations ******************************* //
@@ -154,7 +156,11 @@ void	map<Key, T, Compare, Alloc>::clear(void) {
 
 template<class Key, class T, class Compare, class Alloc> template <class Ite>
 void	map<Key, T, Compare, Alloc>::_create_data_it(Ite first, Ite last) {
-	(void)first; (void)last;
+	while (first != last)
+	{
+		this->_btree_add(new node_type(*first++));
+		++this->_size;
+	}
 }
 
 template<class Key, class T, class Compare, class Alloc>
@@ -164,11 +170,15 @@ void	map<Key, T, Compare, Alloc>::_create_data(size_type size, const value_type 
 
 template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::_cpy_content(map<Key, T, Compare, Alloc> &src) {
+	this->clear();
+	node_ptr tmp = this->_data;
+
 	this->_data = src._data;
 	this->_key_cmp = src._key_cmp;
 	this->_alloc = src._alloc;
 	this->_size = src._size;
-	src._data->initialize(); src._size = 0;
+	src._data = tmp; src._size = 0;
+	tmp = NULL;
 }
 
 template<class Key, class T, class Compare, class Alloc>

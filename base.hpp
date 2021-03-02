@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/02/27 23:04:43 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 22:03:06 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ struct	mapNode
 	mapNode		*right;
 
 	mapNode(const bool ghost = false) : _ghost(ghost), data() { initialize(); };
+	mapNode(const T &src, const bool ghost = false) : _ghost(ghost), data(src) { initialize(); };
 	mapNode &operator=(mapNode &rhs) {
 		if (this == &rhs)
 			return (*this);
