@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 22:57:31 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 23:39:19 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 namespace ft {
 
 template <class Key, class T, class Compare, class Alloc>
-map<Key, T, Compare, Alloc>::map(const key_compare &comp, const allocator_type &alloc) : \
-		_data(), _key_cmp(comp), _alloc(alloc), _size(0) {
+map<Key, T, Compare, Alloc>::map(const key_compare &comp, const allocator_type \
+		&alloc) : _data(), _key_cmp(comp), _alloc(alloc), _size(0) {
 	this->_data = new node_type;
 	return ;
 }
@@ -48,7 +48,8 @@ map<Key, T, Compare, Alloc>::~map(void) {
 }
 
 template<class Key, class T, class Compare, class Alloc>
-map<Key, T, Compare, Alloc>	&map<Key, T, Compare, Alloc>::operator=(map const &rhs) {
+map<Key, T, Compare, Alloc>&
+map<Key, T, Compare, Alloc>::operator=(map const &rhs) {
 	if (this == &rhs)
 		return (*this);
 	this->clear();
@@ -59,54 +60,64 @@ map<Key, T, Compare, Alloc>	&map<Key, T, Compare, Alloc>::operator=(map const &r
 // ****************************** Iterators ********************************* //
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::iterator map<Key, T, Compare, Alloc>::begin(void) {
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::begin(void) {
 	return iterator(farLeft(this->_data));
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::const_iterator map<Key, T, Compare, Alloc>::begin(void) const {
+typename map<Key, T, Compare, Alloc>::const_iterator
+map<Key, T, Compare, Alloc>::begin(void) const {
 	return const_iterator(farLeft(this->_data));
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::iterator map<Key, T, Compare, Alloc>::end(void) {
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::end(void) {
 	return iterator(farRight(this->_data));
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::const_iterator map<Key, T, Compare, Alloc>::end(void) const {
+typename map<Key, T, Compare, Alloc>::const_iterator
+map<Key, T, Compare, Alloc>::end(void) const {
 	return const_iterator(farRight(this->_data));
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::reverse_iterator map<Key, T, Compare, Alloc>::rbegin(void) {
+typename map<Key, T, Compare, Alloc>::reverse_iterator
+map<Key, T, Compare, Alloc>::rbegin(void) {
 	return reverse_iterator(this->end());
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::const_reverse_iterator map<Key, T, Compare, Alloc>::rbegin(void) const {
+typename map<Key, T, Compare, Alloc>::const_reverse_iterator
+map<Key, T, Compare, Alloc>::rbegin(void) const {
 	return const_reverse_iterator(this->end());
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::reverse_iterator map<Key, T, Compare, Alloc>::rend(void) {
+typename map<Key, T, Compare, Alloc>::reverse_iterator
+map<Key, T, Compare, Alloc>::rend(void) {
 	return reverse_iterator(this->begin());
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::const_reverse_iterator map<Key, T, Compare, Alloc>::rend(void) const {
+typename map<Key, T, Compare, Alloc>::const_reverse_iterator
+map<Key, T, Compare, Alloc>::rend(void) const {
 	return const_reverse_iterator(this->begin());
 }
 
 // ******************************* Capacity ********************************* //
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::size_type map<Key, T, Compare, Alloc>::size(void) const {
+typename map<Key, T, Compare, Alloc>::size_type
+map<Key, T, Compare, Alloc>::size(void) const {
 	return (this->_size);
 }
 
 template<class Key, class T, class Compare, class Alloc>
-typename map<Key, T, Compare, Alloc>::size_type map<Key, T, Compare, Alloc>::max_size(void) const {
+typename map<Key, T, Compare, Alloc>::size_type
+map<Key, T, Compare, Alloc>::max_size(void) const {
 	return (this->_max_size);
 }
 
@@ -116,6 +127,12 @@ bool	map<Key, T, Compare, Alloc>::empty(void) const {
 }
 
 // ******************************* Ele Access ******************************* //
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::mapped_type&
+map<Key, T, Compare, Alloc>::operator[](const key_type &k) {
+	return (this->insert(value_type(k, mapped_type()))).first->second;
+}
 
 // ******************************** Modifiers ******************************* //
 
@@ -140,7 +157,7 @@ void	map<Key, T, Compare, Alloc>::swap(map &x) {
 
 template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::clear(void) {
-	node_ptr ghost = farRight(this->_data);
+	node_ptr ghost = this->end()._node;
 
 	if (this->_size == 0)
 		return ;
@@ -169,7 +186,7 @@ void	map<Key, T, Compare, Alloc>::_create_data(size_type size, const value_type 
 }
 
 template<class Key, class T, class Compare, class Alloc>
-void	map<Key, T, Compare, Alloc>::_cpy_content(map<Key, T, Compare, Alloc> &src) {
+void	map<Key, T, Compare, Alloc>::_cpy_content(map &src) {
 	this->clear();
 	node_ptr tmp = this->_data;
 
@@ -248,7 +265,8 @@ void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
 }
 
 template <class Key, class T, class Compare, class Alloc>
-const typename map<Key, T, Compare, Alloc>::size_type map<Key, T, Compare, Alloc>::_max_size =
+const typename map<Key, T, Compare, Alloc>::size_type
+map<Key, T, Compare, Alloc>::_max_size =
 	std::numeric_limits<difference_type>::max() / (sizeof(node_type) / 2 ?: 1);
 
 // ####################### Non-member function overloads #######################
