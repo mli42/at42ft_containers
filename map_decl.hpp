@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:56:50 by mli               #+#    #+#             */
-/*   Updated: 2021/02/28 15:28:03 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/01 12:22:54 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,9 @@ class map {
 	void				_create_data_it(Ite first, Ite last);
 	void				_create_data(size_type size, const value_type &val = value_type());
 	void				_cpy_content(map &src);
+
+	void				_btree_clear(node_ptr node);
+	void				_btree_add(node_ptr node);
 
 }; // ***************************************************** class ft::map end //
 

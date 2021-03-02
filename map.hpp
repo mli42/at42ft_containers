@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/02/28 15:35:45 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/02 11:21:23 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,13 @@ void	map<Key, T, Compare, Alloc>::swap(map &x) {
 
 template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::clear(void) {
-	;
+	node_ptr ghost = this->end();
+
+	if (this->_size == 0)
+		return ;
+	ghost->parent->right = NULL;
+	this->_btree_clear(this->_data);
+	this->_data = ghost;
 }
 
 // ******************************* Operations ******************************* //
@@ -163,6 +169,42 @@ void	map<Key, T, Compare, Alloc>::_cpy_content(map<Key, T, Compare, Alloc> &src)
 	this->_alloc = src._alloc;
 	this->_size = src._size;
 	src._data->initialize(); src._size = 0;
+}
+
+template<class Key, class T, class Compare, class Alloc>
+void	map<Key, T, Compare, Alloc>::_btree_clear(node_ptr node) {
+	if (node == NULL)
+		return ;
+	this->_btree_clear(node->left);
+	this->_btree_clear(node->right);
+	delete node;
+}
+
+template<class Key, class T, class Compare, class Alloc>
+void	map<Key, T, Compare, Alloc>::_btree_add(node_ptr newNode) {
+	node_ptr	*parent = &this->_data;
+	node_ptr	*node = &this->_data;
+	node_ptr	ghost = farRight(this->_data);
+	bool		side_left = -1;
+
+	while (*node && *node != ghost)
+	{
+		parent = node;
+		side_left = this->_key_cmp(newNode->data.first, (*node)->data.first);
+		node = (side_left ? &(*node)->left : &(*node)->right);
+	}
+	if (*node == NULL)
+	{
+		newNode->parent = (*parent);
+		*node = newNode;
+	}
+	else // if (*node == ghost)
+	{
+		*node = newNode;
+		newNode->parent = ghost->parent;
+		ghost->parent = farRight(newNode); // Using farRight(newNode)
+		farRight(newNode)->right = ghost; // in case newNode isnt alone
+	}
 }
 
 template <class Key, class T, class Compare, class Alloc>
