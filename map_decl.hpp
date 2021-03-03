@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:56:50 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 23:06:44 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/03 22:29:31 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,9 @@ class map {
 
 // ******************************** Modifiers ******************************* //
 
-	pair<iterator, bool> insert(const value_type &val);
-	iterator	insert(iterator position, const value_type &val);
-	template <class Ite>
-	void insert(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first, Ite last);
+	ft::pair<iterator, bool>	insert(const value_type &val);
+	iterator					insert(iterator position, const value_type &val);
+	template <class Ite> void	insert(Ite first, Ite last);
 
 	void		erase(iterator position);
 	size_type	erase(const key_type &k);
@@ -98,6 +97,17 @@ class map {
 	void		clear(void);
 
 // ******************************* Operations ******************************* //
+
+	iterator		find(const key_type &k);
+	const_iterator	find(const key_type &k) const;
+	size_type		count(const key_type &k) const;
+
+	iterator		lower_bound(const key_type &k);
+	const_iterator	lower_bound(const key_type &k) const;
+	iterator		upper_bound(const key_type &k);
+	const_iterator	upper_bound(const key_type &k) const;
+	pair<const_iterator,const_iterator>	equal_range(const key_type &k) const;
+	pair<iterator,iterator>				equal_range(const key_type &k);
 
 // ******************************* Non-public ******************************* //
 
@@ -117,6 +127,8 @@ class map {
 	void				_btree_clear(node_ptr node);
 	void				_btree_add(node_ptr node);
 	void				_btree_rm(node_ptr node);
+
+	bool				_key_eq(const key_type &k1, const key_type &k2) const;
 
 }; // ***************************************************** class ft::map end //
 

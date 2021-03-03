@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 23:39:19 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/03 23:10:29 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,31 @@ map<Key, T, Compare, Alloc>::operator[](const key_type &k) {
 // ******************************** Modifiers ******************************* //
 
 template<class Key, class T, class Compare, class Alloc>
+ft::pair<typename map<Key, T, Compare, Alloc>::iterator, bool>
+map<Key, T, Compare, Alloc>::insert(const value_type &val) {
+	ft::pair<iterator, bool> res;
+
+	res.second = !this->count(val.first);
+	if (res.second == true)
+		this->_btree_add(new node_type(val));
+	res.first = this->find(val.first);
+	return (res);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::insert(iterator position, const value_type &val) {
+	static_cast<void>(position);
+	return this->insert(val).first;
+}
+
+template<class Key, class T, class Compare, class Alloc> template <class Ite>
+void	map<Key, T, Compare, Alloc>::insert(Ite first, Ite last) {
+	while (first != last)
+		this->insert(*first++);
+}
+
+template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::erase(iterator position) {
 	this->erase(position++, position);
 }
@@ -169,15 +194,56 @@ void	map<Key, T, Compare, Alloc>::clear(void) {
 
 // ******************************* Operations ******************************* //
 
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::find(const key_type &k) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (this->_key_eq(it->first, k))
+			break ;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::const_iterator
+map<Key, T, Compare, Alloc>::find(const key_type &k) const {
+	const_iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (this->_key_eq(it->first, k))
+			break ;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::size_type
+map<Key, T, Compare, Alloc>::count(const key_type &k) const {
+	const_iterator	it = this->begin(), ite = this->end();
+	size_type		res = 0;
+
+	while (it != ite)
+	{
+		if (this->_key_eq((it++)->first, k))
+		{
+			++res;
+			break ; // Because map can't have the same key twice (or more)
+		}
+	}
+	return (res);
+}
+
 // ################################ Private ####################################
 
 template<class Key, class T, class Compare, class Alloc> template <class Ite>
 void	map<Key, T, Compare, Alloc>::_create_data_it(Ite first, Ite last) {
-	while (first != last)
-	{
-		this->_btree_add(new node_type(*first++));
-		++this->_size;
-	}
+	this->insert(first, last);
 }
 
 template<class Key, class T, class Compare, class Alloc>
@@ -214,6 +280,7 @@ void	map<Key, T, Compare, Alloc>::_btree_add(node_ptr newNode) {
 	node_ptr	ghost = farRight(this->_data);
 	bool		side_left = -1;
 
+	++this->_size;
 	while (*node && *node != ghost)
 	{
 		parent = node;
@@ -239,6 +306,7 @@ void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
 	node_ptr	replaceNode = NULL;
 	node_ptr	*rmPlace = &this->_data;
 
+	--this->_size;
 	if (rmNode->parent)
 		rmPlace = (&rmNode->parent->left == &rmNode ? &rmNode->parent->left : &rmNode->parent->right);
 	if (rmNode->left == NULL && rmNode->right == NULL)
@@ -262,6 +330,12 @@ void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
 	}
 	*rmPlace = replaceNode;
 	delete rmNode;
+}
+
+template<class Key, class T, class Compare, class Alloc>
+bool
+map<Key, T, Compare, Alloc>::_key_eq(const key_type &k1, const key_type &k2) const {
+	return (!this->_key_cmp(k1, k2) && !this->_key_cmp(k2, k1));
 }
 
 template <class Key, class T, class Compare, class Alloc>
