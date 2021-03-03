@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/03 23:10:29 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/03 23:33:13 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,20 @@ void	map<Key, T, Compare, Alloc>::erase(iterator position) {
 }
 
 template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::size_type
+map<Key, T, Compare, Alloc>::erase(const key_type &k) {
+	iterator element = this->find(k);
+
+	if (element == this->end())
+		return (0);
+	this->_btree_rm(element._node);
+	return (1);
+}
+
+template<class Key, class T, class Compare, class Alloc>
 void	map<Key, T, Compare, Alloc>::erase(iterator first, iterator last) {
-	(void)first; (void)last;
+	while (first != last)
+		this->_btree_rm((first++)._node);
 }
 
 template<class Key, class T, class Compare, class Alloc>
