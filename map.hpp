@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/05 10:39:01 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/05 15:57:29 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,82 @@ map<Key, T, Compare, Alloc>::count(const key_type &k) const {
 			break ; // Because map can't have the same key twice (or more)
 		}
 	}
+	return (res);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::lower_bound(const key_type &k) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (!this->_key_cmp(it->first, k))
+			break;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::const_iterator
+map<Key, T, Compare, Alloc>::lower_bound(const key_type &k) const {
+	const_iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (!this->_key_cmp(it->first, k))
+			break;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::iterator
+map<Key, T, Compare, Alloc>::upper_bound(const key_type &k) {
+	iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (this->_key_cmp(k, it->first))
+			break;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::const_iterator
+map<Key, T, Compare, Alloc>::upper_bound(const key_type &k) const {
+	const_iterator it = this->begin(), ite = this->end();
+
+	while (it != ite)
+	{
+		if (this->_key_cmp(k, it->first))
+			break;
+		++it;
+	}
+	return (it);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+ft::pair<typename map<Key, T, Compare, Alloc>::const_iterator, typename map<Key, T, Compare, Alloc>::const_iterator>
+map<Key, T, Compare, Alloc>::equal_range(const key_type &k) const {
+	pair<const_iterator, const_iterator> res;
+
+	res.first = this->lower_bound(k);
+	res.second = this->upper_bound(k);
+	return (res);
+}
+
+template<class Key, class T, class Compare, class Alloc>
+ft::pair<typename map<Key, T, Compare, Alloc>::iterator, typename map<Key, T, Compare, Alloc>::iterator>
+map<Key, T, Compare, Alloc>::equal_range(const key_type &k) {
+	pair<iterator, iterator> res;
+
+	res.first = this->lower_bound(k);
+	res.second = this->upper_bound(k);
 	return (res);
 }
 
