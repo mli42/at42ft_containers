@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/03 23:33:13 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/05 10:39:01 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,7 +320,7 @@ void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
 
 	--this->_size;
 	if (rmNode->parent)
-		rmPlace = (&rmNode->parent->left == &rmNode ? &rmNode->parent->left : &rmNode->parent->right);
+		rmPlace = (rmNode->parent->left == rmNode ? &rmNode->parent->left : &rmNode->parent->right);
 	if (rmNode->left == NULL && rmNode->right == NULL)
 		;
 	else if (rmNode->left == NULL) // left == NULL && right != NULL
@@ -335,10 +335,16 @@ void	map<Key, T, Compare, Alloc>::_btree_rm(node_ptr rmNode) {
 	if (replaceNode)
 	{
 		replaceNode->parent = rmNode->parent;
-		if (rmNode->left != replaceNode && (replaceNode->left = rmNode->left))
+		if (rmNode->left && rmNode->left != replaceNode)
+		{
+			replaceNode->left = rmNode->left;
 			replaceNode->left->parent = replaceNode;
-		if (rmNode->right != replaceNode && (replaceNode->right = rmNode->right))
+		}
+		if (rmNode->right && rmNode->right != replaceNode)
+		{
+			replaceNode->right = rmNode->right;
 			replaceNode->right->parent = replaceNode;
+		}
 	}
 	*rmPlace = replaceNode;
 	delete rmNode;
