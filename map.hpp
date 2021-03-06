@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 14:10:55 by mli               #+#    #+#             */
-/*   Updated: 2021/03/05 15:57:29 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/06 12:40:50 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,20 @@ void	map<Key, T, Compare, Alloc>::clear(void) {
 	this->_btree_clear(this->_data);
 	this->_data = ghost;
 	this->_size = 0;
+}
+
+// ******************************* Observers ******************************** //
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::key_compare
+map<Key, T, Compare, Alloc>::key_comp(void) const {
+	return (key_compare());
+}
+
+template<class Key, class T, class Compare, class Alloc>
+typename map<Key, T, Compare, Alloc>::value_compare
+map<Key, T, Compare, Alloc>::value_comp(void) const {
+	return (value_compare(key_compare()));
 }
 
 // ******************************* Operations ******************************* //
@@ -481,6 +495,22 @@ template <class Key, class T, class Compare, class Alloc>
 void	swap(map<Key, T, Compare, Alloc> &x, map<Key, T, Compare, Alloc> &y) {
 	x.swap(y);
 }
+
+// ################################## Other ####################################
+
+template <class Key, class T, class Compare, class Alloc>
+class	map<Key, T, Compare, Alloc>::value_compare {
+	public:
+	Compare comp;
+	value_compare(Compare c) : comp(c) { };
+
+	typedef bool		result_type;
+	typedef value_type	first_argument_type;
+	typedef value_type	second_argument_type;
+	bool	operator()(const value_type &x, const value_type &y) const {
+		return comp(x.first, y.first);
+	}
+};
 
 } // ******************************************************* ft namespace end //
 

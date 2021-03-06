@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 15:56:50 by mli               #+#    #+#             */
-/*   Updated: 2021/03/03 22:29:31 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/06 12:37:40 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ class map {
 	typedef T											mapped_type;
 	typedef pair<const key_type, mapped_type>			value_type;
 	typedef Compare										key_compare;
+	class												value_compare;
 
 	typedef Alloc										allocator_type;
 	typedef typename allocator_type::reference			reference;
@@ -95,6 +96,11 @@ class map {
 
 	void		swap(map &x);
 	void		clear(void);
+
+// ******************************* Observers ******************************** //
+
+	key_compare		key_comp(void) const;
+	value_compare	value_comp(void) const;
 
 // ******************************* Operations ******************************* //
 
