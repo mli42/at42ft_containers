@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 12:07:52 by mli               #+#    #+#             */
-/*   Updated: 2021/03/08 12:11:56 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/08 12:25:15 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ class queue {
 	typedef const value_type*		const_pointer;
 
 	container_type	c;
+
+	queue(const queue &src) : c(src.c) {};
+	queue	&operator=(queue const &rhs) { this->c = rhs.c; };
 
 	public:
 

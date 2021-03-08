@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 10:53:34 by mli               #+#    #+#             */
-/*   Updated: 2021/03/08 11:34:28 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/08 12:25:53 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ class stack {
 	typedef const value_type*		const_pointer;
 
 	container_type	c;
+
+	stack(const stack &src) : c(src.c) {};
+	stack	&operator=(stack const &rhs) { this->c = rhs.c; };
 
 	public:
 
