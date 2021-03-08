@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 12:04:22 by mli               #+#    #+#             */
-/*   Updated: 2021/02/25 10:32:33 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/08 23:36:31 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ namespace ft {
 template <typename T, typename Alloc>
 list<T, Alloc>::list(const allocator_type &alloc) : \
 	_data(), _alloc(alloc), _size(0) {
+	this->_data = new node_type;
 	return ;
 }
 
 template <typename T, typename Alloc>
 list<T, Alloc>::list(size_type size, const value_type &val, const allocator_type &alloc) : \
 	_data(), _alloc(alloc), _size(0) {
+	this->_data = new node_type;
 	this->_create_data(size, val);
 	return ;
 }
@@ -34,17 +36,20 @@ list<T, Alloc>::list(size_type size, const value_type &val, const allocator_type
 template <typename T, typename Alloc> template <class Ite>
 list<T, Alloc>::list(typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type first,
 		Ite last, const allocator_type &alloc) : _data(), _alloc(alloc), _size(0) {
+	this->_data = new node_type;
 	this->_create_data_it(first, last);
 }
 
 template<typename T, typename Alloc>
 list<T, Alloc>::list(list const &src) : _data(), _alloc(allocator_type()), _size(0) {
+	this->_data = new node_type;
 	*this = src;
 }
 
 template<typename T, typename Alloc>
 list<T, Alloc>::~list(void) {
 	this->_destroy_data();
+	delete this->_data;
 }
 
 template<typename T, typename Alloc>
@@ -59,22 +64,22 @@ list<T, Alloc>	&list<T, Alloc>::operator=(list const &rhs) {
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator list<T, Alloc>::begin(void) {
-	return iterator(this->_data.next);
+	return iterator(this->_data->next);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::begin(void) const {
-	return const_iterator(this->_data.next);
+	return const_iterator(this->_data->next);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::iterator list<T, Alloc>::end(void) {
-	return iterator(&this->_data);
+	return iterator(this->_data);
 }
 
 template<typename T, typename Alloc>
 typename list<T, Alloc>::const_iterator list<T, Alloc>::end(void) const {
-	return const_iterator(this->_data.next->prev);
+	return const_iterator(this->_data);
 }
 
 template<typename T, typename Alloc>
@@ -128,12 +133,12 @@ const_reference	list<T, Alloc>::front(void) const {
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
 reference		list<T, Alloc>::back(void) {
-	return this->_data.prev->data;
+	return this->_data->prev->data;
 }
 
 template<typename T, typename Alloc> typename list<T, Alloc>::
 const_reference	list<T, Alloc>::back(void) const {
-	return this->_data.prev->data;
+	return this->_data->prev->data;
 }
 
 // ******************************** Modifiers ******************************* //
@@ -158,21 +163,21 @@ void		list<T, Alloc>::push_front(const value_type &val) {
 
 	++this->_size;
 	newNode->data = val;
-	newNode->next = this->_data.next;
-	newNode->prev = &this->_data;
-	this->_data.next->prev = newNode;
-	this->_data.next = newNode;
+	newNode->next = this->_data->next;
+	newNode->prev = this->_data;
+	this->_data->next->prev = newNode;
+	this->_data->next = newNode;
 }
 
 template<typename T, typename Alloc>
 void		list<T, Alloc>::pop_front(void) {
-	node_type	*oldNode = this->_data.next;
+	node_type	*oldNode = this->_data->next;
 
 	if (this->empty())
 		return ;
 	--this->_size;
-	this->_data.next = oldNode->next;
-	this->_data.next->prev = &this->_data;
+	this->_data->next = oldNode->next;
+	this->_data->next->prev = this->_data;
 	delete oldNode;
 }
 
@@ -182,21 +187,21 @@ void		list<T, Alloc>::push_back(const value_type &val) {
 
 	++this->_size;
 	newNode->data = val;
-	newNode->next = &this->_data;
-	newNode->prev = this->_data.prev;
-	this->_data.prev->next = newNode;
-	this->_data.prev = newNode;
+	newNode->next = this->_data;
+	newNode->prev = this->_data->prev;
+	this->_data->prev->next = newNode;
+	this->_data->prev = newNode;
 }
 
 template<typename T, typename Alloc>
 void		list<T, Alloc>::pop_back(void) {
-	node_type	*oldNode = this->_data.prev;
+	node_type	*oldNode = this->_data->prev;
 
 	if (this->empty())
 		return ;
 	--this->_size;
-	this->_data.prev = oldNode->prev;
-	this->_data.prev->next = &this->_data;
+	this->_data->prev = oldNode->prev;
+	this->_data->prev->next = this->_data;
 	delete oldNode;
 }
 
@@ -209,35 +214,35 @@ iterator	list<T, Alloc>::insert(iterator position, const value_type &val) {
 template<typename T, typename Alloc>
 void	list<T, Alloc>::insert(iterator position, size_type n, const value_type &val) {
 	node_type *after = position._node;
-	node_type *after_end = this->_data.prev;
+	node_type *after_end = this->_data->prev;
 
 	--position;
-	position._node->next = &this->_data;
-	this->_data.prev = position._node;
+	position._node->next = this->_data;
+	this->_data->prev = position._node;
 	while (n-- != 0)
 		this->push_back(val);
-	if (after == &this->_data)
+	if (after == this->_data)
 		return ;
-	after->prev = this->_data.prev;
-	this->_data.prev->next = after;
-	this->_data.prev = after_end;
+	after->prev = this->_data->prev;
+	this->_data->prev->next = after;
+	this->_data->prev = after_end;
 }
 
 template<typename T, typename Alloc> template <class Ite>
 void	list<T, Alloc>::insert(iterator position, Ite first, typename ft::enable_if<!std::numeric_limits<Ite>::is_integer, Ite>::type last) {
 	node_type *after = position._node;
-	node_type *after_end = this->_data.prev;
+	node_type *after_end = this->_data->prev;
 
 	--position;
-	position._node->next = &this->_data;
-	this->_data.prev = position._node;
+	position._node->next = this->_data;
+	this->_data->prev = position._node;
 	while (first != last)
 		this->push_back(*first++);
-	if (after == &this->_data)
+	if (after == this->_data)
 		return ;
-	after->prev = this->_data.prev;
-	this->_data.prev->next = after;
-	this->_data.prev = after_end;
+	after->prev = this->_data->prev;
+	this->_data->prev->next = after;
+	this->_data->prev = after_end;
 }
 
 template<typename T, typename Alloc>
@@ -278,7 +283,8 @@ void	list<T, Alloc>::clear(void) {
 		tmp = it++;
 		delete tmp._node;
 	}
-	this->_size = 0; this->_data.initialize();
+	this->_size = 0;
+	this->_data->next = this->_data; this->_data->prev = this->_data;
 }
 
 template<typename T, typename Alloc>
@@ -432,7 +438,7 @@ void	list<T, Alloc>::sort(void) {
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::reverse(void) {
-	iterator	it = iterator(&this->_data);
+	iterator	it = iterator(this->_data);
 	size_type	size = this->_size + 1;
 	node_type	*tmp;
 
@@ -488,10 +494,14 @@ void	list<T, Alloc>::_destroy_data(void) {
 
 template<typename T, typename Alloc>
 void	list<T, Alloc>::_cpy_content(list<T, Alloc> &src) {
+	this->clear();
+	node_ptr tmp = this->_data;
+
 	this->_data = src._data;
 	this->_alloc = src._alloc;
 	this->_size = src._size;
-	src._data.initialize(); src._size = 0;
+	src._data = tmp; src._size = 0;
+	tmp = NULL;
 }
 
 template <typename T, typename Alloc>

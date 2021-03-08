@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/20 16:57:26 by mli               #+#    #+#             */
-/*   Updated: 2021/03/02 22:03:06 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/08 23:31:38 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,27 +103,17 @@ struct	lstNode
 	lstNode		*next;
 	lstNode		*prev;
 
-	lstNode(void) : data() { initialize(); };
-	lstNode &operator=(lstNode &rhs) {
-		if (this == &rhs)
-			return *this;
-		this->data = rhs.data; this->next = rhs.next; this->prev = rhs.prev;
-		this->next->prev = this;
-		this->prev->next = this;
-		rhs.initialize();
-		return *this;
-	}
-	void initialize(void) {
-		this->next = this;
-		this->prev = this;
-	}
+	lstNode(const T &src = T()) : data(src), next(this), prev(this) {};
 };
 
 template <typename T>
 struct	mapNode
 {
 	private:
-	const bool	_ghost;
+	bool _unused;
+	#if __APPLE__ == 0
+		int _unused_for_linux;
+	#endif
 
 	public:
 	T			data;
@@ -131,24 +121,8 @@ struct	mapNode
 	mapNode		*left;
 	mapNode		*right;
 
-	mapNode(const bool ghost = false) : _ghost(ghost), data() { initialize(); };
-	mapNode(const T &src, const bool ghost = false) : _ghost(ghost), data(src) { initialize(); };
-	mapNode &operator=(mapNode &rhs) {
-		if (this == &rhs)
-			return (*this);
-		this->data = rhs.data; this->parent = rhs.parent;
-		this->left = rhs.left; this->right = rhs.right;
-		if (this->left)
-			this->left->parent = this;
-		if (this->right)
-			this->right->parent = this;
-		((this->parent->left == &rhs) ? this->parent->left : this->parent->right) = this;
-		return (*this);
-	}
-	void initialize(void) {
-		this->parent = NULL; this->left = NULL; this->right = NULL;
-	}
-	bool isGhost(void) const { return (this->_ghost == true); };
+	mapNode(const T &src = T()) : \
+		data(src), parent(NULL), left(NULL), right(NULL) {};
 };
 
 template <typename T>

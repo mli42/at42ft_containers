@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 14:53:53 by mli               #+#    #+#             */
-/*   Updated: 2021/02/25 10:32:54 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/08 23:16:06 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ class list {
 	typedef typename allocator_type::pointer			pointer;
 	typedef typename allocator_type::const_pointer		const_pointer;
 	typedef ft::lstNode<value_type>						node_type;
+	typedef node_type*									node_ptr;
 
 	typedef ptrdiff_t									difference_type;
 	typedef size_t										size_type;
@@ -126,7 +127,7 @@ class list {
 
 	protected:
 	private:
-	node_type				_data;
+	node_ptr				_data;
 	allocator_type			_alloc;
 	size_type				_size;
 	const static size_type	_max_size;
