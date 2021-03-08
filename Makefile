@@ -6,7 +6,7 @@
 #    By: mli <mli@student.42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/20 16:39:23 by mli               #+#    #+#              #
-#    Updated: 2021/03/08 10:38:38 by mli              ###   ########.fr        #
+#    Updated: 2021/03/08 12:06:12 by mli              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ endif
 SRCS_FILES = main.cpp
 CONTAINERS = RandomIte vector list map
 CONTAINERS_FILES = base ${CONTAINERS} ${addsuffix _decl, ${CONTAINERS}} \
-				   ReverseIte lstIte mapIte stack
+				   ReverseIte lstIte mapIte stack queue
 HEADER_FILES = ${addsuffix .hpp, ${CONTAINERS_FILES}}
 
 OBJS_PATH = ./obj/
