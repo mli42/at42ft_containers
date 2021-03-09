@@ -6,7 +6,7 @@
 /*   By: mli <mli@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/09 18:56:40 by mli               #+#    #+#             */
-/*   Updated: 2021/02/21 14:52:36 by mli              ###   ########.fr       */
+/*   Updated: 2021/03/09 12:17:13 by mli              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ template <typename Spe, typename node_type>
 class lstIte {
 	protected:
 		node_type						*_node;
-		lstIte(node_type *src);
 
 	public:
 		typedef Spe						value_type;
@@ -30,6 +29,7 @@ class lstIte {
 		typedef value_type*				pointer;
 
 		lstIte(void);
+		lstIte(node_type *src);
 		lstIte(const lstIte &src);
 		virtual ~lstIte(void);
 		lstIte	&operator=(lstIte const &rhs);
